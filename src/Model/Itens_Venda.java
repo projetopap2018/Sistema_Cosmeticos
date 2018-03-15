@@ -10,7 +10,6 @@ package Model;
  * @author ronal
  */
 public class Itens_Venda {
-
   
     private int idItensVenda;
     private int quantidade;

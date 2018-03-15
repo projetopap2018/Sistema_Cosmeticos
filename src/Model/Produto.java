@@ -10,7 +10,6 @@ package Model;
  * @author ronal
  */
 public class Produto {
-
   
     private int idProduto;
     private String descricao;

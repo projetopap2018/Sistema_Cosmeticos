@@ -12,8 +12,7 @@ import java.util.Date;
  * @author ronal
  */
 public class Venda {
-
-  
+    
     private int idVenda;
     private double valorTotal;
     private Date dataVenda;
