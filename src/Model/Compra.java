@@ -13,7 +13,7 @@ import java.util.Date;
  */
 public class Compra {
     
-    
+    private int idCompra;
     private int quantidade;
     private Date dataCompra;
     private Produto produto;
@@ -21,12 +21,14 @@ public class Compra {
     public Compra() {
     }
 
-    public Compra( int quantidade, Date dataCompra, Produto produto) {
-       
+    public Compra(int idCompra, int quantidade, Date dataCompra, Produto produto) {
+        this.idCompra = idCompra;
         this.quantidade = quantidade;
         this.dataCompra = dataCompra;
         this.produto = produto;
     }
+
+
 
 
     /**
@@ -69,6 +71,20 @@ public class Compra {
      */
     public void setProduto(Produto produto) {
         this.produto = produto;
+    }
+
+    /**
+     * @return the idCompra
+     */
+    public int getIdCompra() {
+        return idCompra;
+    }
+
+    /**
+     * @param idCompra the idCompra to set
+     */
+    public void setIdCompra(int idCompra) {
+        this.idCompra = idCompra;
     }
     
     

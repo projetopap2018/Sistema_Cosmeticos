@@ -14,6 +14,7 @@ import java.util.Date;
 public class Venda {
 
   
+    private int idVenda;
     private double valorTotal;
     private Date dataVenda;
     private Cliente cliente;
@@ -23,13 +24,15 @@ public class Venda {
     public Venda() {
     }
 
-    public Venda(double valorTotal, Date dataVenda, Cliente cliente, Produto produto) {
-     
+    public Venda(int idVenda, double valorTotal, Date dataVenda, Cliente cliente, Produto produto, Itens_Venda itens_Venda) {
+        this.idVenda = idVenda;
         this.valorTotal = valorTotal;
         this.dataVenda = dataVenda;
         this.cliente = cliente;
         this.produto = produto;
+        this.itens_Venda = itens_Venda;
     }
+
 
    
     /**
@@ -86,5 +89,19 @@ public class Venda {
      */
     public void setProduto(Produto produto) {
         this.produto = produto;
+    }
+
+    /**
+     * @return the idVenda
+     */
+    public int getIdVenda() {
+        return idVenda;
+    }
+
+    /**
+     * @param idVenda the idVenda to set
+     */
+    public void setIdVenda(int idVenda) {
+        this.idVenda = idVenda;
     }
 }

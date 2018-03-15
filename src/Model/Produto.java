@@ -12,6 +12,7 @@ package Model;
 public class Produto {
 
   
+    private int idProduto;
     private String descricao;
     private int codigoProduto;
     private int quantidade;
@@ -22,8 +23,8 @@ public class Produto {
     public Produto() {
     }
 
-    public Produto(String descricao, int codigoProduto, int quantidade, double valorUnitario, double valorTotal) {
-       
+    public Produto(int idProduto, String descricao, int codigoProduto, int quantidade, double valorUnitario, double valorTotal) {
+        this.idProduto = idProduto;
         this.descricao = descricao;
         this.codigoProduto = codigoProduto;
         this.quantidade = quantidade;
@@ -31,6 +32,7 @@ public class Produto {
         this.valorTotal = valorTotal;
     }
 
+  
    
 
     /**
@@ -101,6 +103,20 @@ public class Produto {
      */
     public void setValorTotal(double valorTotal) {
         this.valorTotal = valorTotal;
+    }
+
+    /**
+     * @return the idProduto
+     */
+    public int getIdProduto() {
+        return idProduto;
+    }
+
+    /**
+     * @param idProduto the idProduto to set
+     */
+    public void setIdProduto(int idProduto) {
+        this.idProduto = idProduto;
     }
 
 

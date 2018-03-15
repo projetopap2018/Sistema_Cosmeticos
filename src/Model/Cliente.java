@@ -13,6 +13,7 @@ import java.util.Date;
  */
 public class Cliente {
     
+    private int idCliente;
     private int codigo;
     private Date dataNasc;
     private String nome;
@@ -33,8 +34,8 @@ public class Cliente {
     public Cliente() {
     }
 
-    public Cliente( int codigo, Date dataNasc, String nome, String cpf, String email, String endereco, String numero, String bairro, String cidade, String cep, String uf, String telefone, String celular, String isnsEstadual, String cnpj, String salao) {
-   
+    public Cliente(int idCliente, int codigo, Date dataNasc, String nome, String cpf, String email, String endereco, String numero, String bairro, String cidade, String cep, String uf, String telefone, String celular, String isnsEstadual, String cnpj, String salao) {
+        this.idCliente = idCliente;
         this.codigo = codigo;
         this.dataNasc = dataNasc;
         this.nome = nome;
@@ -52,7 +53,8 @@ public class Cliente {
         this.cnpj = cnpj;
         this.salao = salao;
     }
- 
+
+
 
     /**
      * @return the codigo
@@ -276,6 +278,20 @@ public class Cliente {
      */
     public void setSalao(String salao) {
         this.salao = salao;
+    }
+
+    /**
+     * @return the idCliente
+     */
+    public int getIdCliente() {
+        return idCliente;
+    }
+
+    /**
+     * @param idCliente the idCliente to set
+     */
+    public void setIdCliente(int idCliente) {
+        this.idCliente = idCliente;
     }
     
     

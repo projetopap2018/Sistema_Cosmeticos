@@ -12,17 +12,20 @@ package Model;
 public class Itens_Venda {
 
   
+    private int idItensVenda;
     private int quantidade;
     private double valorUnitario;
 
     public Itens_Venda() {
     }
 
-    public Itens_Venda(int quantidade, double valorUnitario) {
-       
+    public Itens_Venda(int idItensVenda, int quantidade, double valorUnitario) {
+        this.idItensVenda = idItensVenda;
         this.quantidade = quantidade;
         this.valorUnitario = valorUnitario;
     }
+
+  
 
     
 
@@ -52,6 +55,20 @@ public class Itens_Venda {
      */
     public void setValorUnitario(double valorUnitario) {
         this.valorUnitario = valorUnitario;
+    }
+
+    /**
+     * @return the idItensVenda
+     */
+    public int getIdItensVenda() {
+        return idItensVenda;
+    }
+
+    /**
+     * @param idItensVenda the idItensVenda to set
+     */
+    public void setIdItensVenda(int idItensVenda) {
+        this.idItensVenda = idItensVenda;
     }
 
  

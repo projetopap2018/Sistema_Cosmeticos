@@ -13,6 +13,7 @@ import java.util.Date;
  */
 public class Parcelas_Venda {
     
+    private int idParcelasVenda;
     private int quantidadeParcelas;
     private Date dataParcela;
     private double valorParcela;
@@ -22,17 +23,17 @@ public class Parcelas_Venda {
     public Parcelas_Venda() {
     }
 
-    public Parcelas_Venda(int quantidadeParcelas, Date dataParcela, double valorParcela, String tipoPgt) {
-     
+    public Parcelas_Venda(int idParcelasVenda, int quantidadeParcelas, Date dataParcela, double valorParcela, String tipoPgt, Venda venda) {
+        this.idParcelasVenda = idParcelasVenda;
         this.quantidadeParcelas = quantidadeParcelas;
         this.dataParcela = dataParcela;
         this.valorParcela = valorParcela;
         this.tipoPgt = tipoPgt;
+        this.venda = venda;
     }
 
-  
-
-    /**
+ 
+        /**
      * @return the quantidadeParcelas
      */
     public int getQuantidadeParcelas() {
@@ -86,6 +87,20 @@ public class Parcelas_Venda {
      */
     public void setTipoPgt(String tipoPgt) {
         this.tipoPgt = tipoPgt;
+    }
+
+    /**
+     * @return the idParcelasVenda
+     */
+    public int getIdParcelasVenda() {
+        return idParcelasVenda;
+    }
+
+    /**
+     * @param idParcelasVenda the idParcelasVenda to set
+     */
+    public void setIdParcelasVenda(int idParcelasVenda) {
+        this.idParcelasVenda = idParcelasVenda;
     }
 
   
