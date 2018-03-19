@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Model;
+package br.com.cosmeticos.Model;
 
 import java.util.Date;
 
@@ -14,8 +14,8 @@ import java.util.Date;
 public class Cliente {
 
     private int idCliente;
-    private int codigo;
-    private Date dataNasc;
+    private int codigoCliente;
+    private String dataNasc;
     private String nome;
     private String cpf;
     private String email;
@@ -34,11 +34,9 @@ public class Cliente {
     public Cliente() {
     }
 
-    public Cliente(int idCliente, int codigo, Date dataNasc, String nome, String cpf, String email, String endereco,
-            String numero, String bairro, String cidade, String cep, String uf, String telefone, String celular,
-            String isnsEstadual, String cnpj, String salao) {
+    public Cliente(int idCliente, int codigoCliente, String dataNasc, String nome, String cpf, String email, String endereco, String numero, String bairro, String cidade, String cep, String uf, String telefone, String celular, String isnsEstadual, String cnpj, String salao) {
         this.idCliente = idCliente;
-        this.codigo = codigo;
+        this.codigoCliente = codigoCliente;
         this.dataNasc = dataNasc;
         this.nome = nome;
         this.cpf = cpf;
@@ -57,30 +55,44 @@ public class Cliente {
     }
 
     /**
-     * @return the codigo
+     * @return the idCliente
      */
-    public int getCodigo() {
-        return codigo;
+    public int getIdCliente() {
+        return idCliente;
     }
 
     /**
-     * @param codigo the codigo to set
+     * @param idCliente the idCliente to set
      */
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
+    public void setIdCliente(int idCliente) {
+        this.idCliente = idCliente;
+    }
+
+    /**
+     * @return the codigoCliente
+     */
+    public int getCodigoCliente() {
+        return codigoCliente;
+    }
+
+    /**
+     * @param codigoCliente the codigoCliente to set
+     */
+    public void setCodigoCliente(int codigoCliente) {
+        this.codigoCliente = codigoCliente;
     }
 
     /**
      * @return the dataNasc
      */
-    public Date getDataNasc() {
+    public String getDataNasc() {
         return dataNasc;
     }
 
     /**
      * @param dataNasc the dataNasc to set
      */
-    public void setDataNasc(Date dataNasc) {
+    public void setDataNasc(String dataNasc) {
         this.dataNasc = dataNasc;
     }
 
@@ -278,20 +290,6 @@ public class Cliente {
      */
     public void setSalao(String salao) {
         this.salao = salao;
-    }
-
-    /**
-     * @return the idCliente
-     */
-    public int getIdCliente() {
-        return idCliente;
-    }
-
-    /**
-     * @param idCliente the idCliente to set
-     */
-    public void setIdCliente(int idCliente) {
-        this.idCliente = idCliente;
     }
 
 }
