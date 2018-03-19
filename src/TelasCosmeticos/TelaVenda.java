@@ -28,28 +28,26 @@ public class TelaVenda extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
         btnVoltar = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         btnExcuir = new javax.swing.JButton();
         btnPesquisar1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txtValorVenda = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableVenda = new javax.swing.JTable();
         btnAdicionarVenda = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         txtCodVenda = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jFormattedTextField1 = new javax.swing.JFormattedTextField();
         jButton2 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jTextField3 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jTextField1.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
 
         jTextField2.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
 
@@ -81,9 +79,6 @@ public class TelaVenda extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
         jLabel2.setText("DATA VENDA");
 
-        jLabel5.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
-        jLabel5.setText("CÓDCLIENTE");
-
         jLabel4.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
         jLabel4.setText("VALOR");
 
@@ -91,9 +86,11 @@ public class TelaVenda extends javax.swing.JFrame {
 
         jScrollPane1.setFont(new java.awt.Font("Arial", 0, 48)); // NOI18N
 
-        jTable1.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
-        jTable1.setForeground(new java.awt.Color(255, 255, 255));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableVenda.setAutoCreateRowSorter(true);
+        jTableVenda.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jTableVenda.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+        jTableVenda.setForeground(new java.awt.Color(255, 255, 255));
+        jTableVenda.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -117,12 +114,33 @@ public class TelaVenda extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "CÓDVENDA", "PRODUTO", "CLIENTE", "DATA VENDA"
             }
-        ));
-        jTable1.setGridColor(new java.awt.Color(0, 0, 0));
-        jTable1.setRowMargin(-50);
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jTableVenda.setGridColor(new java.awt.Color(0, 0, 0));
+        jTableVenda.setRowHeight(60);
+        jTableVenda.setRowMargin(-20);
+        jTableVenda.setSelectionBackground(new java.awt.Color(0, 0, 0));
+        jTableVenda.setSelectionForeground(new java.awt.Color(0, 0, 0));
+        jScrollPane1.setViewportView(jTableVenda);
+        if (jTableVenda.getColumnModel().getColumnCount() > 0) {
+            jTableVenda.getColumnModel().getColumn(0).setMinWidth(0);
+            jTableVenda.getColumnModel().getColumn(0).setPreferredWidth(0);
+            jTableVenda.getColumnModel().getColumn(1).setMinWidth(200);
+            jTableVenda.getColumnModel().getColumn(1).setPreferredWidth(200);
+            jTableVenda.getColumnModel().getColumn(2).setMinWidth(300);
+            jTableVenda.getColumnModel().getColumn(2).setPreferredWidth(300);
+            jTableVenda.getColumnModel().getColumn(3).setMinWidth(0);
+            jTableVenda.getColumnModel().getColumn(3).setPreferredWidth(0);
+        }
 
         btnAdicionarVenda.setBackground(new java.awt.Color(0, 0, 0));
         btnAdicionarVenda.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
@@ -130,7 +148,7 @@ public class TelaVenda extends javax.swing.JFrame {
         btnAdicionarVenda.setText("ADICIONAR");
 
         jLabel3.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
-        jLabel3.setText("CÓDPROD");
+        jLabel3.setText("CÓDVENDA");
 
         txtCodVenda.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
 
@@ -149,30 +167,18 @@ public class TelaVenda extends javax.swing.JFrame {
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("SALVAR");
 
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+        jLabel1.setText("PRODUTO");
+
+        jTextField3.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel3)
-                            .addComponent(txtCodVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(74, 74, 74)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel5)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(110, 110, 110)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel2)
-                            .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(98, 98, 98)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel4)
-                            .addComponent(txtValorVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(99, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
@@ -185,23 +191,39 @@ public class TelaVenda extends javax.swing.JFrame {
                                 .addComponent(btnAdicionarVenda))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel6)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(40, 40, 40))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(txtCodVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(497, 497, 497)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(98, 98, 98)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel4)
+                                    .addComponent(txtValorVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
                                 .addGap(18, 18, 18)
-                                .addComponent(jTextField2)))
-                        .addGap(40, 40, 40))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 795, Short.MAX_VALUE)
+                                    .addComponent(jTextField3)))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1332, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(71, Short.MAX_VALUE))))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(349, 349, 349)
-                            .addComponent(jButton1)
-                            .addGap(18, 18, 18)
-                            .addComponent(btnPesquisar1)
-                            .addGap(18, 18, 18)
-                            .addComponent(btnExcuir))
-                        .addGroup(layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1332, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addContainerGap(85, Short.MAX_VALUE)))
+                    .addGap(349, 349, 349)
+                    .addComponent(jButton1)
+                    .addGap(18, 18, 18)
+                    .addComponent(btnPesquisar1)
+                    .addGap(18, 18, 18)
+                    .addComponent(btnExcuir)
+                    .addContainerGap(275, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -209,31 +231,33 @@ public class TelaVenda extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jLabel5)
                     .addComponent(jLabel2)
                     .addComponent(jLabel4))
                 .addGap(9, 9, 9)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtCodVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtValorVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(40, 40, 40)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(43, 43, 43)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(91, 91, 91)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                 .addComponent(btnAdicionarVenda)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 244, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(btnVoltar))
                 .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(421, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(18, 18, 18)
+                    .addContainerGap(640, Short.MAX_VALUE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnExcuir)
                         .addComponent(btnPesquisar1)
@@ -293,15 +317,15 @@ public class TelaVenda extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JFormattedTextField jFormattedTextField1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTable jTableVenda;
     private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField txtCodVenda;
     private javax.swing.JTextField txtValorVenda;
     // End of variables declaration//GEN-END:variables

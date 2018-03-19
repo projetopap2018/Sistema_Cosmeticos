@@ -17,7 +17,7 @@ public class ClienteBO {
             return false;
         }
          
-        String digitos = cpfSemFormatacao.substring(0, 9);;
+        String digitos = cpfSemFormatacao.substring(0, 9);
         String dvs = cpfSemFormatacao.substring(9, 11);
          
         String dv1 = gerarDV(digitos);
