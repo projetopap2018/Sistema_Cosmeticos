@@ -12,7 +12,7 @@ import java.util.Date;
  * @author ronal
  */
 public class Cliente {
-    
+
     private int idCliente;
     private int codigo;
     private Date dataNasc;
@@ -34,7 +34,9 @@ public class Cliente {
     public Cliente() {
     }
 
-    public Cliente(int idCliente, int codigo, Date dataNasc, String nome, String cpf, String email, String endereco, String numero, String bairro, String cidade, String cep, String uf, String telefone, String celular, String isnsEstadual, String cnpj, String salao) {
+    public Cliente(int idCliente, int codigo, Date dataNasc, String nome, String cpf, String email, String endereco,
+            String numero, String bairro, String cidade, String cep, String uf, String telefone, String celular,
+            String isnsEstadual, String cnpj, String salao) {
         this.idCliente = idCliente;
         this.codigo = codigo;
         this.dataNasc = dataNasc;
@@ -53,8 +55,6 @@ public class Cliente {
         this.cnpj = cnpj;
         this.salao = salao;
     }
-
-
 
     /**
      * @return the codigo
@@ -293,7 +293,5 @@ public class Cliente {
     public void setIdCliente(int idCliente) {
         this.idCliente = idCliente;
     }
-    
-    
 
 }
