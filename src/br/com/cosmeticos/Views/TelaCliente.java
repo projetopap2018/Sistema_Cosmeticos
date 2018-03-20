@@ -1,30 +1,21 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.cosmeticos.Views;
 
-import br.com.cosmeticos.DAO.ModuloConexao;
-import br.com.cosmeticos.DAO.ClienteDAO;
+import br.com.cosmeticos.DAO.ClienteDAO;;
 import br.com.cosmeticos.Model.Cliente;
-import java.sql.Date;
+import java.awt.HeadlessException;
+import javax.swing.JOptionPane;
 
-/**
- *
- * @author ronal
- */
 public class TelaCliente extends javax.swing.JFrame {
 
-    ModuloConexao conexao = new ModuloConexao();
+    int codigo;//variavel global
 
     /**
      * Creates new form TelaCliente
      */
     public TelaCliente() {
         initComponents();
-        setExtendedState(MAXIMIZED_BOTH);
-        conexao.conector();
+        //   setExtendedState(MAXIMIZED_BOTH);
+
     }
 
     /**
@@ -44,26 +35,16 @@ public class TelaCliente extends javax.swing.JFrame {
         txtCliente = new javax.swing.JTextField();
         txtCPF = new javax.swing.JFormattedTextField();
         jLabel2 = new javax.swing.JLabel();
-        txtDataNasc = new javax.swing.JFormattedTextField();
         txtEndCli = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        txtInscEst = new javax.swing.JFormattedTextField();
         txtNumero = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
         btnSalvarCli = new javax.swing.JButton();
         btnPesqCli = new javax.swing.JButton();
-        btnEdiCli = new javax.swing.JButton();
-        btnExcCli = new javax.swing.JButton();
         btnVoltaCli = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
-        txtCNPJ = new javax.swing.JFormattedTextField();
-        jLabel11 = new javax.swing.JLabel();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
         jLabel3 = new javax.swing.JLabel();
-        jFormattedTextField2 = new javax.swing.JFormattedTextField();
+        txtCel = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -84,6 +65,7 @@ public class TelaCliente extends javax.swing.JFrame {
         jLabel7.setText("CPF");
 
         txtCliente.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+        txtCliente.setHorizontalAlignment(javax.swing.JTextField.LEFT);
 
         try {
             txtCPF.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
@@ -95,35 +77,12 @@ public class TelaCliente extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
         jLabel2.setText("END");
 
-        try {
-            txtDataNasc.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        txtDataNasc.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
-
         txtEndCli.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
-
-        jLabel8.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
-        jLabel8.setText("CNPJ");
-
-        jLabel9.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
-        jLabel9.setText("IE");
 
         jLabel4.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
         jLabel4.setText("Nº");
 
-        try {
-            txtInscEst.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.#####-##")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        txtInscEst.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
-
         txtNumero.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
-
-        jLabel5.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
-        jLabel5.setText("DATANASC");
 
         btnSalvarCli.setBackground(new java.awt.Color(0, 0, 0));
         btnSalvarCli.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
@@ -139,16 +98,11 @@ public class TelaCliente extends javax.swing.JFrame {
         btnPesqCli.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
         btnPesqCli.setForeground(new java.awt.Color(255, 255, 255));
         btnPesqCli.setText("PESQUISAR");
-
-        btnEdiCli.setBackground(new java.awt.Color(0, 0, 0));
-        btnEdiCli.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
-        btnEdiCli.setForeground(new java.awt.Color(255, 255, 255));
-        btnEdiCli.setText("EDITAR");
-
-        btnExcCli.setBackground(new java.awt.Color(0, 0, 0));
-        btnExcCli.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
-        btnExcCli.setForeground(new java.awt.Color(255, 255, 255));
-        btnExcCli.setText("EXCLUIR");
+        btnPesqCli.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesqCliActionPerformed(evt);
+            }
+        });
 
         btnVoltaCli.setBackground(new java.awt.Color(0, 0, 0));
         btnVoltaCli.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
@@ -165,32 +119,15 @@ public class TelaCliente extends javax.swing.JFrame {
 
         txtEmail.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
 
-        try {
-            txtCNPJ.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###/####-##")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        txtCNPJ.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
-
-        jLabel11.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
-        jLabel11.setText("TEL");
-
-        try {
-            jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)####-####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        jFormattedTextField1.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
-
         jLabel3.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
         jLabel3.setText("CEL");
 
         try {
-            jFormattedTextField2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)#####-####")));
+            txtCel.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)#####-####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        jFormattedTextField2.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+        txtCel.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -199,128 +136,88 @@ public class TelaCliente extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(233, 233, 233)
-                        .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 1039, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtSalao, javax.swing.GroupLayout.PREFERRED_SIZE, 602, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtEndCli, javax.swing.GroupLayout.PREFERRED_SIZE, 1039, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtCNPJ, javax.swing.GroupLayout.PREFERRED_SIZE, 459, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtInscEst, javax.swing.GroupLayout.PREFERRED_SIZE, 459, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 376, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 826, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(lblNomeCli)
+                            .addComponent(jLabel2)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(btnSalvarCli)
+                        .addGap(314, 314, 314)
+                        .addComponent(btnPesqCli)
+                        .addGap(243, 243, 243)
+                        .addComponent(btnVoltaCli))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1)))
+                .addContainerGap(1042, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 1039, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtSalao, javax.swing.GroupLayout.PREFERRED_SIZE, 602, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(28, 28, 28)
+                                .addComponent(jLabel4)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtEndCli, javax.swing.GroupLayout.PREFERRED_SIZE, 1039, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel7))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblNomeCli)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel6)
-                                    .addComponent(btnSalvarCli))
+                                .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 376, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addGap(600, 600, 600)
-                                        .addComponent(jLabel4)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addComponent(btnPesqCli)
-                                        .addGap(31, 31, 31)
-                                        .addComponent(btnEdiCli)
-                                        .addGap(26, 26, 26)
-                                        .addComponent(btnExcCli)
-                                        .addGap(28, 28, 28)
-                                        .addComponent(btnVoltaCli))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(363, 363, 363)
-                                .addComponent(jLabel1))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel8)
-                                    .addComponent(jLabel7))
-                                .addGap(593, 593, 593)
-                                .addComponent(jLabel5)
+                                .addComponent(jLabel3)
                                 .addGap(18, 18, 18)
-                                .addComponent(txtDataNasc, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel9)
-                                .addGap(651, 651, 651)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel3)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jFormattedTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel11)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
-                .addContainerGap(1042, Short.MAX_VALUE))
+                                .addComponent(txtCel, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 826, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 1306, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addComponent(jLabel1)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtEndCli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(7, 7, 7))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(96, 96, 96)
+                        .addGap(37, 37, 37)
                         .addComponent(lblNomeCli)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1)
-                        .addGap(32, 32, 32)
-                        .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtEndCli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtSalao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel4)
-                            .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel8)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtDataNasc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(txtCNPJ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel9)
-                        .addComponent(txtInscEst, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel11)
-                        .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7)
-                    .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jFormattedTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel3)))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel2)))
+                .addGap(10, 10, 10)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtSalao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
                     .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 216, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnVoltaCli)
-                    .addComponent(btnExcCli)
-                    .addComponent(btnEdiCli)
-                    .addComponent(btnPesqCli)
-                    .addComponent(btnSalvarCli))
+                    .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel3)
+                    .addComponent(txtCel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 353, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnVoltaCli, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPesqCli, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSalvarCli, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24))
         );
 
@@ -335,21 +232,44 @@ public class TelaCliente extends javax.swing.JFrame {
 
     private void btnSalvarCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarCliActionPerformed
         //chama metodo inserir cliente
-        Cliente cliente = new Cliente();//instanciar cliente
-        ClienteDAO clienteDao = new ClienteDAO();//chamar DAO para inserção no BD
-        //pegando o valor da caixa de texto do formulário
-        cliente.setEmail(txtEmail.getText());
-        cliente.setNome(txtCliente.getText());
-        cliente.setSalao(txtSalao.getText());
-        cliente.setCnpj(txtCNPJ.getText());
-        cliente.setIsnsEstadual(txtInscEst.getText());
-        cliente.setDataNasc(txtDataNasc.getText());
-        cliente.setCpf(txtCPF.getText());
-        
-        clienteDao.inserirCliente(cliente);//chama clienteDAO e o metodo com o objeto cliente como parametro
 
+        try {
+            Cliente cliente = new Cliente();//instanciar cliente
 
+            //pegando o valor da caixa de texto do formulário
+            cliente.setNome(txtCliente.getText());
+            cliente.setEndereco(txtEndCli.getText());
+            cliente.setSalao(txtSalao.getText());
+            cliente.setNumero(Integer.parseInt(txtNumero.getText()));
+            cliente.setEmail(txtEmail.getText());
+            cliente.setCelular(txtCel.getText());
+            cliente.setCpf(txtCPF.getText());
+
+            ClienteDAO clienteDao = new ClienteDAO();//chamar DAO para inserção no BD
+            clienteDao.adicionarCliente(cliente);//chama clienteDAO e o metodo com o objeto cliente como parametro
+
+            JOptionPane.showMessageDialog(null, "CLIENTE CADASTRADO!");
+//limpar campos
+
+            txtCliente.setText(null);
+            txtEndCli.setText(null);
+            txtSalao.setText(null);
+            txtNumero.setText(null);
+            txtCPF.setText(null);
+            txtEmail.setText(null);
+            txtCel.setText(null);
+
+        } catch (HeadlessException | NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "ERRO AO CADASTRAR!" + e);
+        }
     }//GEN-LAST:event_btnSalvarCliActionPerformed
+
+    private void btnPesqCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesqCliActionPerformed
+        // chama metodo persquisar
+
+        TelaPesquisaCliente tpesq = new TelaPesquisaCliente();
+        tpesq.setVisible(true);
+    }//GEN-LAST:event_btnPesqCliActionPerformed
 
     /**
      * @param args the command line arguments
@@ -387,32 +307,22 @@ public class TelaCliente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnEdiCli;
-    private javax.swing.JButton btnExcCli;
     private javax.swing.JButton btnPesqCli;
     private javax.swing.JButton btnSalvarCli;
     private javax.swing.JButton btnVoltaCli;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
-    private javax.swing.JFormattedTextField jFormattedTextField2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel lblNomeCli;
-    private javax.swing.JFormattedTextField txtCNPJ;
     private javax.swing.JFormattedTextField txtCPF;
+    private javax.swing.JFormattedTextField txtCel;
     private javax.swing.JTextField txtCliente;
-    private javax.swing.JFormattedTextField txtDataNasc;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtEndCli;
-    private javax.swing.JFormattedTextField txtInscEst;
     private javax.swing.JTextField txtNumero;
     private javax.swing.JTextField txtSalao;
     // End of variables declaration//GEN-END:variables

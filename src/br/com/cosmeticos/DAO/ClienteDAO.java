@@ -1,53 +1,103 @@
 package br.com.cosmeticos.DAO;
 
+import Conexao.ConectaBanco;
 import br.com.cosmeticos.Model.Cliente;
-import javax.swing.JOptionPane;
 import java.sql.*;
 
 public class ClienteDAO {
 
-    Connection conexao = null;
-    PreparedStatement pst = null;
-    ResultSet rs = null;
+    public Connection c;
 
-    public void inserirCliente(Cliente cliente) {
+    public ClienteDAO() {//abre a conexao com o BD
+        this.c = new ConectaBanco().getConnection();
+    }
 
-        String sql = "insert into cliente(Email,CodigoCliente,NomeCliente,NomeSalao,CNPJ,InscEstadual,CPF) VALUES(?,?,?,?,?,?,?,?)";
+    public void adicionarCliente(Cliente cliente) {
 
         try {
-            pst = conexao.prepareStatement(sql);
-            pst.setString(1, cliente.getEmail());
-            pst.setString(2, String.valueOf(cliente.getCodigoCliente()));
-            pst.setString(3, cliente.getNome());
-            pst.setString(4, cliente.getSalao());
-            pst.setString(5, cliente.getCnpj());
-            pst.setString(6, cliente.getIsnsEstadual());
-            pst.setString(7, cliente.getDataNasc());
-            pst.setString(8, cliente.getCpf());
-          
 
+            String sql = "insert into cosmetico.cliente(nome,endereco,salao,numero,email,celular,cpf)values(?,?,?,?,?,?,?)";
 
+            PreparedStatement pst = c.prepareStatement(sql);//prerapa a string sql
+
+            pst.setString(1, cliente.getNome());
+            pst.setString(2, cliente.getEndereco());
+            pst.setString(3, cliente.getSalao());
+            pst.setInt(4, cliente.getNumero());
+            pst.setString(5, cliente.getEmail());
+            pst.setString(6, cliente.getCelular());
+            pst.setString(7, cliente.getCpf());
+
+            pst.executeUpdate();//executa a gravação no bd
+            pst.close();//fecha conexao
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+//    public List<Cliente> buscaPorNome() {
+//
+//        List<Cliente> clientes = new ArrayList<>();
+//        try {
+//
+//            String sql = "select * from cosmetico.cliente";
+//            PreparedStatement pst = c.prepareStatement(sql);//prerapa a string sql
+//      
+//            ResultSet rs = pst.executeQuery();
+////           rs.beforeFirst();
+//            while (rs.next()) {
+//                Cliente cliente = new Cliente();
+//
+//                cliente.setIdCliente(rs.getInt("idCliente"));
+//                cliente.setCodigo(rs.getInt("codigo"));
+//                cliente.setNome(rs.getString("nome"));
+//                cliente.setSalao(rs.getString("salao"));
+//                cliente.setCpf(rs.getString("cpf"));
+//                cliente.setEmail(rs.getString("email"));
+//                cliente.setEndereco(rs.getString("endereco"));
+//                cliente.setNumero(rs.getInt("numero"));
+//                clientes.add(cliente);
+//            }
+//            pst.close();//fecha conexao
+//
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        }
+//        return clientes;
+//    }
+    public void excluirCliente(Cliente cliente) {
+
+        try {
+            String sql = "delete from cosmetico.cliente where idCliente = ?";
+            PreparedStatement pst = c.prepareStatement(sql);//prerapa a string sql
+            pst.setInt(1, cliente.getIdCliente());//PASSA OS PARAMETROS DO ID PARA EXCLUSÃO
             pst.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Cadastro Salvo!");
-            //validação dos campos obrigatorios
-            /*   if (cliente.getEmail().isEmpty() || (txtEndCli.getText().isEmpty()) || (txtTelCli.getText().isEmpty()) || (txtEmailCli.getText().isEmpty())) {
-                JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios!");
-            } else {
+            pst.close();//fechar a conexao
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
-                //atualiza a tabela de usuarios, com os dados do formulario
-                int adicionado = pst.executeUpdate();
-                if (adicionado > 0) {
-                    JOptionPane.showMessageDialog(null, "Cliente adicionado com sucesso!");
-                    //limpam os campos
-                    txtNomeCli.setText(null);
-                    txtEndCli.setText(null);
-                    txtTelCli.setText(null);
-                    txtEmailCli.setText(null);
-                }
-            }*/
+    }
 
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao Cadastrar!");
+    public void alterarCliente(Cliente cliente) {
+
+        try {
+            String sql = "update cosmetico.cliente set nome=?,endereco=?,salao=?,numero=?,email=?,celular=? where idCliente=?";
+
+            PreparedStatement pst = c.prepareStatement(sql);//prerapa a string sql
+            pst.setString(1, cliente.getNome());
+            pst.setString(2, cliente.getEndereco());
+            pst.setString(3, cliente.getSalao());
+            pst.setInt(4, cliente.getNumero());            
+            pst.setString(5, cliente.getEmail());
+            pst.setString(6, cliente.getCelular());
+            pst.setInt(7, cliente.getIdCliente());
+            
+
+            pst.execute();
+            pst.close();//fechar a conexao
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 

@@ -1,107 +1,22 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.cosmeticos.Model;
 
-/**
- *
- * @author ronal
- */
 public class Produto {
-  
+
     private int idProduto;
+    private int codigo;
     private String descricao;
-    private int codigoProduto;
-    private int quantidade;
-    private double valorUnitario;
-    private double valorTotal;
-   
+    private int qntd;
+    private float valorUnitario;
 
     public Produto() {
     }
 
-    public Produto(int idProduto, String descricao, int codigoProduto, int quantidade, double valorUnitario, double valorTotal) {
+    public Produto(int idProduto, int codigo, String descricao, int qntd, float valorUnitario) {
         this.idProduto = idProduto;
+        this.codigo = codigo;
         this.descricao = descricao;
-        this.codigoProduto = codigoProduto;
-        this.quantidade = quantidade;
+        this.qntd = qntd;
         this.valorUnitario = valorUnitario;
-        this.valorTotal = valorTotal;
-    }
-
-  
-   
-
-    /**
-     * @return the descricao
-     */
-    public String getDescricao() {
-        return descricao;
-    }
-
-    /**
-     * @param descricao the descricao to set
-     */
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    /**
-     * @return the codigoProduto
-     */
-    public int getCodigoProduto() {
-        return codigoProduto;
-    }
-
-    /**
-     * @param codigoProduto the codigoProduto to set
-     */
-    public void setCodigoProduto(int codigoProduto) {
-        this.codigoProduto = codigoProduto;
-    }
-
-    /**
-     * @return the quantidade
-     */
-    public int getQuantidade() {
-        return quantidade;
-    }
-
-    /**
-     * @param quantidade the quantidade to set
-     */
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
-    }
-
-    /**
-     * @return the valorUnitario
-     */
-    public double getValorUnitario() {
-        return valorUnitario;
-    }
-
-    /**
-     * @param valorUnitario the valorUnitario to set
-     */
-    public void setValorUnitario(double valorUnitario) {
-        this.valorUnitario = valorUnitario;
-    }
-
-    /**
-     * @return the valorTotal
-     */
-    public double getValorTotal() {
-        return valorTotal;
-    }
-
-    /**
-     * @param valorTotal the valorTotal to set
-     */
-    public void setValorTotal(double valorTotal) {
-        this.valorTotal = valorTotal;
     }
 
     /**
@@ -118,5 +33,62 @@ public class Produto {
         this.idProduto = idProduto;
     }
 
+    /**
+     * @return the codigo
+     */
+    public int getCodigo() {
+        return codigo;
+    }
+
+    /**
+     * @param codigo the codigo to set
+     */
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
+    }
+
+    /**
+     * @return the descricao
+     */
+    public String getDescricao() {
+        return descricao;
+    }
+
+    /**
+     * @param descricao the descricao to set
+     */
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    /**
+     * @return the qntd
+     */
+    public int getQntd() {
+        return qntd;
+    }
+
+    /**
+     * @param qntd the qntd to set
+     */
+    public void setQntd(int qntd) {
+        this.qntd = qntd;
+    }
+
+    /**
+     * @return the valorUnitario
+     */
+    public float getValorUnitario() {
+        return valorUnitario;
+    }
+
+    /**
+     * @param valorUnitario the valorUnitario to set
+     */
+    public void setValorUnitario(float valorUnitario) {
+        this.valorUnitario = valorUnitario;
+    }
+    
+    
 
 }

@@ -5,7 +5,6 @@
  */
 package br.com.cosmeticos.Views;
 
-import br.com.cosmeticos.DAO.ModuloConexao;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
@@ -15,14 +14,16 @@ import javax.swing.UIManager;
  */
 public class TelaPrincipal extends javax.swing.JFrame {
 
-    ModuloConexao conexao = new ModuloConexao();//variavel global
+//    ModuloConexao conectar = new ModuloConexao();//variavel global
+    
+
     /**
      * Creates new form TelaPrincipal
      */
     public TelaPrincipal() {
         initComponents();
-        setExtendedState(MAXIMIZED_BOTH);
-        conexao.conector();
+      //  setExtendedState(MAXIMIZED_BOTH);
+
     }
 
     /**
@@ -142,10 +143,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
                     .addComponent(btnRelatorio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnVenda, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                 .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -173,22 +175,23 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClienteActionPerformed
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
-       //sair do sistema
-        int confirma = JOptionPane.showConfirmDialog(null, "TEM CERTEZA QUE DESEJA SAIR?", "ATENÇÃO", JOptionPane.YES_NO_OPTION);
-        if (confirma == JOptionPane.YES_OPTION) {
-            System.exit(0);
-        }
+        //sair do sistema
+//        int confirma = JOptionPane.showConfirmDialog(null, "TEM CERTEZA QUE DESEJA SAIR?", "ATENÇÃO", JOptionPane.YES_NO_OPTION);
+//        if (confirma == JOptionPane.YES_OPTION) {
+//            System.exit(0);
+//        }
+
     }//GEN-LAST:event_btnSairActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        
-          try {
+
+        try {
             UIManager.setLookAndFeel("com.jtattoo.plaf.noire.NoireLookAndFeel");
         } catch (Exception e) {
-              JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, e);
         }
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

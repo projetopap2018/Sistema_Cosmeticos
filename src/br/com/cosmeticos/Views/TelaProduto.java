@@ -5,6 +5,10 @@
  */
 package br.com.cosmeticos.Views;
 
+import br.com.cosmeticos.DAO.ProdutoDAO;
+import br.com.cosmeticos.Model.Produto;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author ronal
@@ -16,7 +20,7 @@ public class TelaProduto extends javax.swing.JFrame {
      */
     public TelaProduto() {
         initComponents();
-        setExtendedState(MAXIMIZED_BOTH);
+        //   setExtendedState(MAXIMIZED_BOTH);
     }
 
     /**
@@ -32,18 +36,14 @@ public class TelaProduto extends javax.swing.JFrame {
         lblDescri = new javax.swing.JLabel();
         txtDescriProd = new javax.swing.JTextField();
         lblValorUniProd = new javax.swing.JLabel();
-        txtValorUnProd = new javax.swing.JTextField();
         lblQntProd = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        txtCodigo = new javax.swing.JTextField();
         txtQntProd = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnSalvar = new javax.swing.JButton();
+        btnPesqProd = new javax.swing.JButton();
         btnVoltarProd = new javax.swing.JButton();
-        btnEditProd = new javax.swing.JButton();
-        txtValrTotProd = new javax.swing.JTextField();
+        txtValorUni = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -58,35 +58,35 @@ public class TelaProduto extends javax.swing.JFrame {
         lblValorUniProd.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
         lblValorUniProd.setText("VALOR UNITÁRIO");
 
-        txtValorUnProd.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
-
         lblQntProd.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
         lblQntProd.setText("QUANTIDADE");
 
-        jTextField2.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+        txtCodigo.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
 
         txtQntProd.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
-
-        jLabel8.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
-        jLabel8.setText("VALOR TOTAL");
 
         jLabel3.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
         jLabel3.setText("CÓD");
 
-        jButton1.setBackground(new java.awt.Color(0, 0, 0));
-        jButton1.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("SALVAR");
+        btnSalvar.setBackground(new java.awt.Color(0, 0, 0));
+        btnSalvar.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+        btnSalvar.setForeground(new java.awt.Color(255, 255, 255));
+        btnSalvar.setText("SALVAR");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
 
-        jButton2.setBackground(new java.awt.Color(0, 0, 0));
-        jButton2.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("PESQUISA");
-
-        jButton3.setBackground(new java.awt.Color(0, 0, 0));
-        jButton3.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("EXCLUIR");
+        btnPesqProd.setBackground(new java.awt.Color(0, 0, 0));
+        btnPesqProd.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+        btnPesqProd.setForeground(new java.awt.Color(255, 255, 255));
+        btnPesqProd.setText("PESQUISA");
+        btnPesqProd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesqProdActionPerformed(evt);
+            }
+        });
 
         btnVoltarProd.setBackground(new java.awt.Color(0, 0, 0));
         btnVoltarProd.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
@@ -98,31 +98,12 @@ public class TelaProduto extends javax.swing.JFrame {
             }
         });
 
-        btnEditProd.setBackground(new java.awt.Color(0, 0, 0));
-        btnEditProd.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
-        btnEditProd.setForeground(new java.awt.Color(255, 255, 255));
-        btnEditProd.setText("EDITAR");
-
-        txtValrTotProd.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+        txtValorUni.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(279, 279, 279)
-                .addComponent(jButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton3)
-                .addGap(289, 289, 289))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton1)
-                .addGap(361, 361, 361)
-                .addComponent(btnEditProd)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnVoltarProd)
-                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
@@ -132,28 +113,30 @@ public class TelaProduto extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(lblDescri))
-                        .addGap(141, 141, 141)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtDescriProd, javax.swing.GroupLayout.PREFERRED_SIZE, 614, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblValorUniProd)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(9, 9, 9)
-                                .addComponent(jLabel8)))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtValrTotProd, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(lblDescri))
+                                .addGap(141, 141, 141)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtDescriProd, javax.swing.GroupLayout.PREFERRED_SIZE, 614, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtValorUnProd, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(223, 223, 223)
+                                .addComponent(lblValorUniProd)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtValorUni, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(196, 196, 196)
                                 .addComponent(lblQntProd)
                                 .addGap(18, 18, 18)
-                                .addComponent(txtQntProd, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(74, Short.MAX_VALUE))
+                                .addComponent(txtQntProd, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 261, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnSalvar)
+                        .addGap(289, 289, 289)
+                        .addComponent(btnPesqProd)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnVoltarProd)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -161,31 +144,24 @@ public class TelaProduto extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(35, 35, 35)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtDescriProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblDescri))
-                        .addGap(35, 35, 35)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblValorUniProd)
-                            .addComponent(txtValorUnProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblQntProd)
-                            .addComponent(txtQntProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(28, 28, 28)
-                        .addComponent(txtValrTotProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel8))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 141, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1)
-                    .addComponent(jButton3)
-                    .addComponent(btnVoltarProd)
-                    .addComponent(btnEditProd))
+                    .addComponent(jLabel3)
+                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(35, 35, 35)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtDescriProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblDescri))
+                .addGap(35, 35, 35)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblValorUniProd)
+                    .addComponent(lblQntProd)
+                    .addComponent(txtQntProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtValorUni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 202, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnPesqProd, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnVoltarProd, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -197,6 +173,38 @@ public class TelaProduto extends javax.swing.JFrame {
         TelaPrincipal tp = new TelaPrincipal();
         tp.setVisible(true);
     }//GEN-LAST:event_btnVoltarProdActionPerformed
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        // chama metodo adicionarProduto
+        try {
+            Produto produto = new Produto();//INSTANCIA O PRODUTO
+//PEGA OS VALORES DO FORMULARIO E GRAVA NO BD
+            produto.setCodigo(Integer.parseInt(txtCodigo.getText()));
+            produto.setDescricao(txtDescriProd.getText());
+            produto.setQntd(Integer.parseInt(txtQntProd.getText()));
+            produto.setValorUnitario(Float.parseFloat(txtValorUni.getText()));
+
+            ProdutoDAO produtoDAO = new ProdutoDAO();//CHAMA A CLASSE PRODUTO DAO E ACESSA O METODO PARA ADICIONAR NO BD
+            produtoDAO.adcionarProduto(produto);
+
+            JOptionPane.showMessageDialog(null, "PRODUTO CADASTRADO!");
+
+            //LIMPAR OS CAMPOS DEPOIS DE SALVAR
+            txtCodigo.setText(null);
+            txtDescriProd.setText(null);
+            txtQntProd.setText(null);
+            txtValorUni.setText(null);
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "ERRO AO CADASTRAR O PRODUTO !");
+        }
+    }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void btnPesqProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesqProdActionPerformed
+        // chama tela pesquisaProduto
+        TelaPesquisaProduto tpp = new TelaPesquisaProduto();
+        tpp.setVisible(true);
+    }//GEN-LAST:event_btnPesqProdActionPerformed
 
     /**
      * @param args the command line arguments
@@ -234,21 +242,17 @@ public class TelaProduto extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnEditProd;
+    private javax.swing.JButton btnPesqProd;
+    private javax.swing.JButton btnSalvar;
     private javax.swing.JButton btnVoltarProd;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JLabel lblDescri;
     private javax.swing.JLabel lblQntProd;
     private javax.swing.JLabel lblValorUniProd;
+    private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtDescriProd;
     private javax.swing.JTextField txtQntProd;
-    private javax.swing.JTextField txtValorUnProd;
-    private javax.swing.JTextField txtValrTotProd;
+    private javax.swing.JTextField txtValorUni;
     // End of variables declaration//GEN-END:variables
 }
