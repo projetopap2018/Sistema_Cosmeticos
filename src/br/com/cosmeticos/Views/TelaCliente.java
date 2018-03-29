@@ -1,9 +1,15 @@
 package br.com.cosmeticos.Views;
 
-import br.com.cosmeticos.DAO.ClienteDAO;;
+import br.com.cosmeticos.DAO.ClienteDAO;
+;
 import br.com.cosmeticos.Model.Cliente;
 import java.awt.HeadlessException;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JOptionPane;
+
+
 
 public class TelaCliente extends javax.swing.JFrame {
 
@@ -45,10 +51,16 @@ public class TelaCliente extends javax.swing.JFrame {
         txtEmail = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         txtCel = new javax.swing.JFormattedTextField();
+        lblData = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
         setSize(new java.awt.Dimension(0, 0));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
         jLabel6.setText("SALÃO");
@@ -83,6 +95,9 @@ public class TelaCliente extends javax.swing.JFrame {
         jLabel4.setText("Nº");
 
         txtNumero.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+        txtNumero.setForeground(new java.awt.Color(255, 255, 255));
+        txtNumero.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtNumero.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
 
         btnSalvarCli.setBackground(new java.awt.Color(0, 0, 0));
         btnSalvarCli.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
@@ -129,6 +144,10 @@ public class TelaCliente extends javax.swing.JFrame {
         }
         txtCel.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
 
+        lblData.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+        lblData.setForeground(new java.awt.Color(255, 255, 255));
+        lblData.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -149,24 +168,13 @@ public class TelaCliente extends javax.swing.JFrame {
                         .addComponent(btnVoltaCli))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel1)))
-                .addContainerGap(1042, Short.MAX_VALUE))
+                        .addComponent(jLabel1)
+                        .addGap(452, 452, 452)
+                        .addComponent(lblData, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(1032, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 1039, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtSalao, javax.swing.GroupLayout.PREFERRED_SIZE, 602, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(28, 28, 28)
-                                .addComponent(jLabel4)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtEndCli, javax.swing.GroupLayout.PREFERRED_SIZE, 1039, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel10)
@@ -180,12 +188,30 @@ public class TelaCliente extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(txtCel, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 826, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 1306, Short.MAX_VALUE))))
+                        .addGap(0, 1306, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 1039, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtSalao, javax.swing.GroupLayout.PREFERRED_SIZE, 602, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(28, 28, 28)
+                                .addComponent(jLabel4)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtEndCli, javax.swing.GroupLayout.PREFERRED_SIZE, 1039, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lblData, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(54, 54, 54)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -213,7 +239,7 @@ public class TelaCliente extends javax.swing.JFrame {
                     .addComponent(jLabel7)
                     .addComponent(jLabel3)
                     .addComponent(txtCel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 353, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 264, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnVoltaCli, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnPesqCli, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -232,36 +258,29 @@ public class TelaCliente extends javax.swing.JFrame {
 
     private void btnSalvarCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarCliActionPerformed
         //chama metodo inserir cliente
+        Cliente cliente = new Cliente();//instanciar cliente
 
-        try {
-            Cliente cliente = new Cliente();//instanciar cliente
-
-            //pegando o valor da caixa de texto do formulário
-            cliente.setNome(txtCliente.getText());
-            cliente.setEndereco(txtEndCli.getText());
-            cliente.setSalao(txtSalao.getText());
-            cliente.setNumero(Integer.parseInt(txtNumero.getText()));
-            cliente.setEmail(txtEmail.getText());
-            cliente.setCelular(txtCel.getText());
-            cliente.setCpf(txtCPF.getText());
-
-            ClienteDAO clienteDao = new ClienteDAO();//chamar DAO para inserção no BD
-            clienteDao.adicionarCliente(cliente);//chama clienteDAO e o metodo com o objeto cliente como parametro
-
-            JOptionPane.showMessageDialog(null, "CLIENTE CADASTRADO!");
+        //pegando o valor da caixa de texto do formulário        
+        cliente.setNome(txtCliente.getText());
+        cliente.setEndereco(txtEndCli.getText());
+        cliente.setSalao(txtSalao.getText());
+        cliente.setNumero(Integer.parseInt(txtNumero.getText()));
+        cliente.setEmail(txtEmail.getText());
+        cliente.setCelular(txtCel.getText());
+        cliente.setCpf(txtCPF.getText());
+        ClienteDAO clienteDao = new ClienteDAO();//chamar DAO para inserção no BD
+        clienteDao.adicionarCliente(cliente);//chama clienteDAO e o metodo com o objeto cliente como parametro
+        JOptionPane.showMessageDialog(null, "CLIENTE CADASTRADO!");
 //limpar campos
+        txtCliente.setText(null);
+        txtEndCli.setText(null);
+        txtSalao.setText(null);
+        txtNumero.setText(null);
+        txtCPF.setText(null);
+        txtEmail.setText(null);
+        txtCel.setText(null);
 
-            txtCliente.setText(null);
-            txtEndCli.setText(null);
-            txtSalao.setText(null);
-            txtNumero.setText(null);
-            txtCPF.setText(null);
-            txtEmail.setText(null);
-            txtCel.setText(null);
 
-        } catch (HeadlessException | NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "ERRO AO CADASTRAR!" + e);
-        }
     }//GEN-LAST:event_btnSalvarCliActionPerformed
 
     private void btnPesqCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesqCliActionPerformed
@@ -270,6 +289,13 @@ public class TelaCliente extends javax.swing.JFrame {
         TelaPesquisaCliente tpesq = new TelaPesquisaCliente();
         tpesq.setVisible(true);
     }//GEN-LAST:event_btnPesqCliActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // mostra a data
+        Date sysDate = new Date();
+        SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy");
+        lblData.setText(dt.format(sysDate));
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
@@ -317,6 +343,7 @@ public class TelaCliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel lblData;
     private javax.swing.JLabel lblNomeCli;
     private javax.swing.JFormattedTextField txtCPF;
     private javax.swing.JFormattedTextField txtCel;

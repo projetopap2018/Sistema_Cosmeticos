@@ -12,7 +12,7 @@ public class ClienteDAO {
         this.c = new ConectaBanco().getConnection();
     }
 
-    public void adicionarCliente(Cliente cliente) {
+    public void adicionarCliente(Cliente cliente) {            
 
         try {
 

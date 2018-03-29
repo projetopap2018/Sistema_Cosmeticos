@@ -4,9 +4,10 @@
  * and open the template in the editor.
  */
 package br.com.cosmeticos.Views;
-
 import br.com.cosmeticos.DAO.ProdutoDAO;
 import br.com.cosmeticos.Model.Produto;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JOptionPane;
 
 /**
@@ -44,8 +45,14 @@ public class TelaProduto extends javax.swing.JFrame {
         btnPesqProd = new javax.swing.JButton();
         btnVoltarProd = new javax.swing.JButton();
         txtValorUni = new javax.swing.JTextField();
+        lblData = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
         jLabel1.setText("CADASTRO DE PRODUTO");
@@ -100,27 +107,32 @@ public class TelaProduto extends javax.swing.JFrame {
 
         txtValorUni.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
 
+        lblData.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+        lblData.setForeground(new java.awt.Color(255, 255, 255));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(94, 94, 94))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(btnSalvar)
+                        .addGap(289, 289, 289)
+                        .addComponent(btnPesqProd)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnVoltarProd))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel3)
                                     .addComponent(lblDescri))
                                 .addGap(141, 141, 141)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtDescriProd, javax.swing.GroupLayout.PREFERRED_SIZE, 614, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtDescriProd)))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblValorUniProd)
                                 .addGap(18, 18, 18)
@@ -131,18 +143,19 @@ public class TelaProduto extends javax.swing.JFrame {
                                 .addComponent(txtQntProd, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 261, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnSalvar)
-                        .addGap(289, 289, 289)
-                        .addComponent(btnPesqProd)
+                        .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnVoltarProd)))
+                        .addComponent(lblData, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(273, 273, 273)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(lblData))
                 .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -182,7 +195,7 @@ public class TelaProduto extends javax.swing.JFrame {
             produto.setCodigo(Integer.parseInt(txtCodigo.getText()));
             produto.setDescricao(txtDescriProd.getText());
             produto.setQntd(Integer.parseInt(txtQntProd.getText()));
-            produto.setValorUnitario(Float.parseFloat(txtValorUni.getText()));
+            produto.setValorUnitario(Float.parseFloat(txtValorUni.getText().replace(",", ".")));//replace - substitui a virgula pelo ponto
 
             ProdutoDAO produtoDAO = new ProdutoDAO();//CHAMA A CLASSE PRODUTO DAO E ACESSA O METODO PARA ADICIONAR NO BD
             produtoDAO.adcionarProduto(produto);
@@ -205,6 +218,14 @@ public class TelaProduto extends javax.swing.JFrame {
         TelaPesquisaProduto tpp = new TelaPesquisaProduto();
         tpp.setVisible(true);
     }//GEN-LAST:event_btnPesqProdActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        //mostra data atual do sistema
+        
+        Date sysDate = new Date();
+        SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy");
+        lblData.setText(dt.format(sysDate));
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments
@@ -247,6 +268,7 @@ public class TelaProduto extends javax.swing.JFrame {
     private javax.swing.JButton btnVoltarProd;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel lblData;
     private javax.swing.JLabel lblDescri;
     private javax.swing.JLabel lblQntProd;
     private javax.swing.JLabel lblValorUniProd;
