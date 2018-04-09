@@ -107,7 +107,8 @@ public class TelaPesquisaCliente extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jtbClientes.setRowHeight(60);
+        jtbClientes.setRowHeight(30
+        );
         jtbClientes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jtbClientesMouseClicked(evt);
@@ -305,7 +306,7 @@ public class TelaPesquisaCliente extends javax.swing.JFrame {
     private void pesquisarClientePorNome() {
         
         try {
-            String sql = "select * from cosmetico.cliente where nome like ?";
+            String sql = "select * from cosmetico.Cliente where nome like ?";
             pst = conexao.prepareStatement(sql);
 
             //passando o conteudo da caixa de pesquisa para o ?
@@ -376,7 +377,7 @@ public class TelaPesquisaCliente extends javax.swing.JFrame {
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         // chama metodo excluir
         try {
-            //     jtbClientes.getModel().removeTableModelListener(jtbClientes);
+         
             Cliente cliente = new Cliente();
             cliente.setIdCliente(Integer.parseInt(txtId.getText()));//chama id para excluir
             ClienteDAO clienteDao = new ClienteDAO();//chamar DAO para inserção no BD

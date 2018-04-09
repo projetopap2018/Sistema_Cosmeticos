@@ -1,19 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.cosmeticos.Views;
+
+import Conexao.TeclasPermitidas;
 import br.com.cosmeticos.DAO.ProdutoDAO;
 import br.com.cosmeticos.Model.Produto;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author ronal
- */
 public class TelaProduto extends javax.swing.JFrame {
 
     /**
@@ -22,6 +15,7 @@ public class TelaProduto extends javax.swing.JFrame {
     public TelaProduto() {
         initComponents();
         //   setExtendedState(MAXIMIZED_BOTH);
+        txtDescriProd.setDocument(new TeclasPermitidas());
     }
 
     /**
@@ -69,8 +63,18 @@ public class TelaProduto extends javax.swing.JFrame {
         lblQntProd.setText("QUANTIDADE");
 
         txtCodigo.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+        txtCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCodigoKeyTyped(evt);
+            }
+        });
 
         txtQntProd.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+        txtQntProd.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtQntProdKeyTyped(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
         jLabel3.setText("CÓD");
@@ -106,6 +110,11 @@ public class TelaProduto extends javax.swing.JFrame {
         });
 
         txtValorUni.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+        txtValorUni.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtValorUniKeyTyped(evt);
+            }
+        });
 
         lblData.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
         lblData.setForeground(new java.awt.Color(255, 255, 255));
@@ -195,7 +204,7 @@ public class TelaProduto extends javax.swing.JFrame {
             produto.setCodigo(Integer.parseInt(txtCodigo.getText()));
             produto.setDescricao(txtDescriProd.getText());
             produto.setQntd(Integer.parseInt(txtQntProd.getText()));
-            produto.setValorUnitario(Float.parseFloat(txtValorUni.getText().replace(",", ".")));//replace - substitui a virgula pelo ponto
+            produto.setValorUni(Float.parseFloat(txtValorUni.getText().replace(",", ".")));//replace - substitui a virgula pelo ponto
 
             ProdutoDAO produtoDAO = new ProdutoDAO();//CHAMA A CLASSE PRODUTO DAO E ACESSA O METODO PARA ADICIONAR NO BD
             produtoDAO.adcionarProduto(produto);
@@ -221,11 +230,35 @@ public class TelaProduto extends javax.swing.JFrame {
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         //mostra data atual do sistema
-        
+
         Date sysDate = new Date();
         SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy");
         lblData.setText(dt.format(sysDate));
     }//GEN-LAST:event_formWindowActivated
+
+    private void txtCodigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyTyped
+        // digita somente numeros
+        String caracteres = "0987654321";
+        if (!caracteres.contains(evt.getKeyChar() + "")) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtCodigoKeyTyped
+
+    private void txtValorUniKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorUniKeyTyped
+         // digita somente numeros
+        String caracteres = "0987654321";
+        if (!caracteres.contains(evt.getKeyChar() + "")) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtValorUniKeyTyped
+
+    private void txtQntProdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQntProdKeyTyped
+         // digita somente numeros
+        String caracteres = "0987654321";
+        if (!caracteres.contains(evt.getKeyChar() + "")) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtQntProdKeyTyped
 
     /**
      * @param args the command line arguments

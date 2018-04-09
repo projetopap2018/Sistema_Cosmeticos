@@ -15,16 +15,16 @@ public class ClienteDAO {
     public void adicionarCliente(Cliente cliente) {            
 
         try {
-
+//instrução sql = BD
             String sql = "insert into cosmetico.cliente(nome,endereco,salao,numero,email,celular,cpf)values(?,?,?,?,?,?,?)";
 
             PreparedStatement pst = c.prepareStatement(sql);//prerapa a string sql
 
-            pst.setString(1, cliente.getNome());
-            pst.setString(2, cliente.getEndereco());
-            pst.setString(3, cliente.getSalao());
+            pst.setString(1, cliente.getNome().toUpperCase().trim());
+            pst.setString(2, cliente.getEndereco().toUpperCase().trim());
+            pst.setString(3, cliente.getSalao().toUpperCase().trim());
             pst.setInt(4, cliente.getNumero());
-            pst.setString(5, cliente.getEmail());
+            pst.setString(5, cliente.getEmail().toUpperCase().trim());
             pst.setString(6, cliente.getCelular());
             pst.setString(7, cliente.getCpf());
 

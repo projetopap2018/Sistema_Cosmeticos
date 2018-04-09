@@ -1,36 +1,34 @@
 package br.com.cosmeticos.Model;
 
-public class Produto {
+public class Pedido {
 
-    private int idProduto;
+    private int idPedido;
     private int codigo;
     private String descricao;
     private int qntd;
-    private float valorUni;
 
-    public Produto() {
+    public Pedido() {
     }
 
-    public Produto(int idProduto, int codigo, String descricao, int qntd, float valorUni) {
-        this.idProduto = idProduto;
+    public Pedido(int idPedido, int codigo, String descricao, int qntd) {
+        this.idPedido = idPedido;
         this.codigo = codigo;
         this.descricao = descricao;
         this.qntd = qntd;
-        this.valorUni = valorUni;
     }
 
     /**
-     * @return the idProduto
+     * @return the idPedido
      */
-    public int getIdProduto() {
-        return idProduto;
+    public int getIdPedido() {
+        return idPedido;
     }
 
     /**
-     * @param idProduto the idProduto to set
+     * @param idPedido the idPedido to set
      */
-    public void setIdProduto(int idProduto) {
-        this.idProduto = idProduto;
+    public void setIdPedido(int idPedido) {
+        this.idPedido = idPedido;
     }
 
     /**
@@ -74,21 +72,5 @@ public class Produto {
     public void setQntd(int qntd) {
         this.qntd = qntd;
     }
-
-    /**
-     * @return the valorUni
-     */
-    public float getValorUni() {
-        return valorUni;
-    }
-
-    /**
-     * @param valorUni the valorUni to set
-     */
-    public void setValorUni(float valorUni) {
-        this.valorUni = valorUni;
-    }
-    
-    
 
 }
