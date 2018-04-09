@@ -3,7 +3,6 @@ package br.com.cosmeticos.DAO;
 import Conexao.ConectaBanco;
 import br.com.cosmeticos.Model.Produto;
 import java.sql.*;
-import javax.swing.JOptionPane;
 
 public class ProdutoDAO {
 
@@ -16,13 +15,13 @@ public class ProdutoDAO {
     public void adcionarProduto(Produto produto) {
 
         try {
-            String sql = "insert into cosmetico.produto (codigo,descricao,qntd,valorUnitario) values (?,?,?,?)";
+            String sql = "insert into cosmetico.produto (codigo,descricao,valorUni,qntd) values (?,?,?,?)";
             PreparedStatement pst = c.prepareStatement(sql);//prerapa a string sql
 
             pst.setInt(1, produto.getCodigo());
             pst.setString(2, produto.getDescricao());
-            pst.setInt(3, produto.getQntd());
-            pst.setFloat(4, produto.getValorUnitario());
+            pst.setFloat(3, produto.getValorUni());
+            pst.setInt(4, produto.getQntd());
 
             pst.executeUpdate();//executa query para inserção no BD
             pst.close();//fecha conexao
@@ -49,15 +48,14 @@ public class ProdutoDAO {
     public void alterarProduto(Produto produto) {
 
         try {
-            String sql = "update cosmetico.produto set codigo=?,descricao=?,qntd=?,valorUnitario=? where idProduto = ?";
+            String sql = "update cosmetico.produto set codigo=?,descricao=?,valorUni=?,qntd=? where idProduto = ?";
 
             PreparedStatement pst = c.prepareStatement(sql);//prerapa a string sql
             pst.setInt(1, produto.getCodigo());
             pst.setString(2, produto.getDescricao());
-            pst.setInt(3, produto.getQntd());
-            pst.setFloat(4, produto.getValorUnitario());
+            pst.setFloat(3, produto.getValorUni());
+            pst.setInt(4, produto.getQntd());
             pst.setInt(5, produto.getIdProduto());
-
             pst.execute();
             pst.close();//fechar a conexao
         } catch (SQLException e) {

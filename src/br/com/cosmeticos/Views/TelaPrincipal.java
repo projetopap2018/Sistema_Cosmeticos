@@ -39,7 +39,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         btnVenda = new javax.swing.JButton();
-        btnRelatorio = new javax.swing.JButton();
+        btnEstoque = new javax.swing.JButton();
         btnProduto = new javax.swing.JButton();
         btnCliente = new javax.swing.JButton();
         btnSair = new javax.swing.JButton();
@@ -67,10 +67,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        btnRelatorio.setBackground(new java.awt.Color(0, 0, 0));
-        btnRelatorio.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
-        btnRelatorio.setForeground(new java.awt.Color(255, 255, 255));
-        btnRelatorio.setText("ESTOQUE");
+        btnEstoque.setBackground(new java.awt.Color(0, 0, 0));
+        btnEstoque.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+        btnEstoque.setForeground(new java.awt.Color(255, 255, 255));
+        btnEstoque.setText("ESTOQUE");
+        btnEstoque.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEstoqueActionPerformed(evt);
+            }
+        });
 
         btnProduto.setBackground(new java.awt.Color(0, 0, 0));
         btnProduto.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
@@ -138,7 +143,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(btnVenda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnRelatorio, javax.swing.GroupLayout.DEFAULT_SIZE, 405, Short.MAX_VALUE))
+                                    .addComponent(btnEstoque, javax.swing.GroupLayout.DEFAULT_SIZE, 405, Short.MAX_VALUE))
                                 .addGap(59, 59, 59)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(btnTelaPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -159,7 +164,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addGap(36, 36, 36)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnTelaPedido, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
-                    .addComponent(btnRelatorio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnEstoque, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -215,6 +220,12 @@ System.exit(0);
         lblData.setText(dt.format(sysDate));
     }//GEN-LAST:event_formWindowActivated
 
+    private void btnEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEstoqueActionPerformed
+        // chama tela estoque
+        TelaEstoque te = new TelaEstoque();
+        te.setVisible(true);
+    }//GEN-LAST:event_btnEstoqueActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -258,8 +269,8 @@ System.exit(0);
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCliente;
+    private javax.swing.JButton btnEstoque;
     private javax.swing.JButton btnProduto;
-    private javax.swing.JButton btnRelatorio;
     private javax.swing.JButton btnSair;
     private javax.swing.JButton btnTelaPedido;
     private javax.swing.JButton btnVenda;

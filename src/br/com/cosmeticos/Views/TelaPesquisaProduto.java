@@ -1,12 +1,12 @@
 package br.com.cosmeticos.Views;
 
 import Conexao.ConectaBanco;
-import br.com.cosmeticos.DAO.ClienteDAO;
+import Conexao.TeclasPermitidas;
 import br.com.cosmeticos.DAO.ProdutoDAO;
-import br.com.cosmeticos.Model.Cliente;
 import br.com.cosmeticos.Model.Produto;
 import java.awt.HeadlessException;
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;//importa recursos da biblioteca rs2xml.jar
 
@@ -22,6 +22,8 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
     public TelaPesquisaProduto() {
         initComponents();
         conexao = ConectaBanco.getConnection();
+        txtDesc.setDocument(new TeclasPermitidas());
+        txtPesq.setDocument(new TeclasPermitidas());
     }
 
     /**
@@ -51,8 +53,14 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
         txtPesq = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         txtData = new javax.swing.JTextField();
+        lblData = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         btnBuscar.setBackground(new java.awt.Color(0, 0, 0));
         btnBuscar.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
@@ -91,7 +99,7 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jtbPesq.setRowHeight(60);
+        jtbPesq.setRowHeight(30);
         jtbPesq.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jtbPesqMouseClicked(evt);
@@ -133,6 +141,11 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
         jLabel1.setText("CÓDIGO");
 
         txtCodigo.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+        txtCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCodigoKeyTyped(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
         jLabel2.setText("DESCRIÇÃO");
@@ -143,11 +156,21 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
         jLabel3.setText("QNTD");
 
         txtQntd.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+        txtQntd.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtQntdKeyTyped(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
         jLabel4.setText("VALOR UNITÁRIO");
 
         txtValorUni.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+        txtValorUni.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtValorUniKeyTyped(evt);
+            }
+        });
 
         txtId.setFont(new java.awt.Font("Tahoma", 0, 3)); // NOI18N
 
@@ -159,6 +182,11 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
         txtData.setEditable(false);
         txtData.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
         txtData.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+
+        lblData.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+        lblData.setForeground(new java.awt.Color(255, 255, 255));
+        lblData.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblData.setText("jLabel6");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -177,11 +205,6 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1)
                         .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtPesq, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnBuscar)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -208,16 +231,25 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
                                         .addComponent(jLabel5)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                                         .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, 525, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addContainerGap())))
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtPesq, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnBuscar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblData, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(45, 45, 45))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnBuscar)
-                    .addComponent(txtPesq, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(58, 58, 58)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnBuscar)
+                        .addComponent(txtPesq, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblData))
+                .addGap(62, 62, 62)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -238,7 +270,7 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
                         .addComponent(txtValorUni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(41, 41, 41)
                 .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnAlterar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -274,8 +306,8 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
         txtId.setText(jtbPesq.getModel().getValueAt(setar, 0).toString());
         txtCodigo.setText(jtbPesq.getModel().getValueAt(setar, 1).toString());
         txtDesc.setText(jtbPesq.getModel().getValueAt(setar, 2).toString());
-        txtQntd.setText(jtbPesq.getModel().getValueAt(setar, 3).toString());
-        txtValorUni.setText(jtbPesq.getModel().getValueAt(setar, 4).toString());
+        txtQntd.setText(jtbPesq.getModel().getValueAt(setar, 4).toString());
+        txtValorUni.setText(jtbPesq.getModel().getValueAt(setar, 3).toString());
         txtData.setText(jtbPesq.getModel().getValueAt(setar, 5).toString());
 
     }
@@ -304,7 +336,7 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
             produto.setCodigo(Integer.parseInt(txtCodigo.getText()));
             produto.setDescricao(txtDesc.getText());
             produto.setQntd(Integer.parseInt(txtQntd.getText()));
-            produto.setValorUnitario(Float.parseFloat(txtValorUni.getText()));
+            produto.setValorUni(Float.parseFloat(txtValorUni.getText()));
             produto.setIdProduto(Integer.parseInt(txtId.getText()));
 
             ProdutoDAO produtoDAO = new ProdutoDAO();
@@ -343,6 +375,38 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "ERRO NA EXCLUSÃO DOS DADOS!" + e);
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        //mostra data atual do sistema
+
+        java.util.Date sysDate = new java.util.Date();
+        SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy");
+        lblData.setText(dt.format(sysDate));
+    }//GEN-LAST:event_formWindowActivated
+
+    private void txtCodigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyTyped
+        // digita somente numeros
+        String caracteres = "0987654321";
+        if (!caracteres.contains(evt.getKeyChar() + "")) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtCodigoKeyTyped
+
+    private void txtQntdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQntdKeyTyped
+        // digita somente numeros
+        String caracteres = "0987654321";
+        if (!caracteres.contains(evt.getKeyChar() + "")) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtQntdKeyTyped
+
+    private void txtValorUniKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorUniKeyTyped
+        // digita somente numeros
+        String caracteres = "0987654321";
+        if (!caracteres.contains(evt.getKeyChar() + "")) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtValorUniKeyTyped
 
     /**
      * @param args the command line arguments
@@ -391,6 +455,7 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jtbPesq;
+    private javax.swing.JLabel lblData;
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtData;
     private javax.swing.JTextField txtDesc;

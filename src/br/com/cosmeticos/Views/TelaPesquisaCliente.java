@@ -1,6 +1,7 @@
 package br.com.cosmeticos.Views;
 
 import Conexao.ConectaBanco;
+import Conexao.TeclasPermitidas;
 import br.com.cosmeticos.DAO.ClienteDAO;
 import br.com.cosmeticos.Model.Cliente;
 import java.awt.HeadlessException;
@@ -12,7 +13,7 @@ import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
 
 public class TelaPesquisaCliente extends javax.swing.JFrame {
-    
+
     Connection conexao = null;
     PreparedStatement pst = null;
     ResultSet rs = null;
@@ -24,6 +25,11 @@ public class TelaPesquisaCliente extends javax.swing.JFrame {
         initComponents();
         conexao = ConectaBanco.getConnection();
         setExtendedState(MAXIMIZED_BOTH);
+        txtNome.setDocument(new TeclasPermitidas());
+        txtEnd.setDocument(new TeclasPermitidas());
+        txtEmail.setDocument(new TeclasPermitidas());
+        txtSalao.setDocument(new TeclasPermitidas());
+        txtPesq.setDocument(new TeclasPermitidas());
     }
 
     /**
@@ -107,7 +113,8 @@ public class TelaPesquisaCliente extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jtbClientes.setRowHeight(60);
+        jtbClientes.setRowHeight(30
+        );
         jtbClientes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jtbClientesMouseClicked(evt);
@@ -132,6 +139,11 @@ public class TelaPesquisaCliente extends javax.swing.JFrame {
         jLabel4.setText("Nº");
 
         txtNumero.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+        txtNumero.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNumeroKeyTyped(evt);
+            }
+        });
 
         txtEmail.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
 
@@ -303,9 +315,9 @@ public class TelaPesquisaCliente extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     private void pesquisarClientePorNome() {
-        
+
         try {
-            String sql = "select * from cosmetico.cliente where nome like ?";
+            String sql = "select * from cosmetico.Cliente where nome like ?";
             pst = conexao.prepareStatement(sql);
 
             //passando o conteudo da caixa de pesquisa para o ?
@@ -329,7 +341,7 @@ public class TelaPesquisaCliente extends javax.swing.JFrame {
         txtNumero.setText(jtbClientes.getModel().getValueAt(setar, 4).toString());
         txtEmail.setText(jtbClientes.getModel().getValueAt(setar, 5).toString());
         txtCel.setText(jtbClientes.getModel().getValueAt(setar, 6).toString());
-        txtDataCadCli.setText(jtbClientes.getModel().getValueAt(setar,8).toString());
+        txtDataCadCli.setText(jtbClientes.getModel().getValueAt(setar, 8).toString());
     }
 
     private void btnBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaActionPerformed
@@ -355,10 +367,10 @@ public class TelaPesquisaCliente extends javax.swing.JFrame {
             cliente.setEmail(txtEmail.getText());
             cliente.setCelular(txtCel.getText());
             cliente.setIdCliente(Integer.parseInt(txtId.getText()));
-            
+
             ClienteDAO clienteDao = new ClienteDAO();//chamar DAO para inserção no BD
             clienteDao.alterarCliente(cliente);//chama clienteDAO e o metodo com o objeto cliente como parametro
-    //        JOptionPane.showMessageDialog(null, "CLIENTE ALTERADO COM SUCESSO!");
+            //        JOptionPane.showMessageDialog(null, "CLIENTE ALTERADO COM SUCESSO!");
 //limpar campos
             txtNome.setText(null);
             txtEnd.setText(null);
@@ -366,7 +378,7 @@ public class TelaPesquisaCliente extends javax.swing.JFrame {
             txtNumero.setText(null);
             txtEmail.setText(null);
             txtCel.setText(null);
-            
+
         } catch (HeadlessException e) {
             JOptionPane.showMessageDialog(null, "ERRO NA ALTERAÇÃO DOS DADOS!" + e);
         }
@@ -376,7 +388,7 @@ public class TelaPesquisaCliente extends javax.swing.JFrame {
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         // chama metodo excluir
         try {
-            //     jtbClientes.getModel().removeTableModelListener(jtbClientes);
+
             Cliente cliente = new Cliente();
             cliente.setIdCliente(Integer.parseInt(txtId.getText()));//chama id para excluir
             ClienteDAO clienteDao = new ClienteDAO();//chamar DAO para inserção no BD
@@ -390,7 +402,7 @@ public class TelaPesquisaCliente extends javax.swing.JFrame {
             txtNumero.setText(null);
             txtEmail.setText(null);
             txtCel.setText(null);
-            
+
         } catch (HeadlessException e) {
             JOptionPane.showMessageDialog(null, "ERRO NA EXCLUSÃO DOS DADOS!" + e);
         }
@@ -403,11 +415,19 @@ public class TelaPesquisaCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVoltarActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-          // mostra a data
+        // mostra a data
         java.util.Date sysDate = new java.util.Date();
         SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy");
         lblData.setText(dt.format(sysDate));
     }//GEN-LAST:event_formWindowActivated
+
+    private void txtNumeroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroKeyTyped
+        // digita somente numeros
+        String caracteres = "0987654321";
+        if (!caracteres.contains(evt.getKeyChar() + "")) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtNumeroKeyTyped
 
     /**
      * @param args the command line arguments

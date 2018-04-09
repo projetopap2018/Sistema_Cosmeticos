@@ -1,16 +1,23 @@
 package br.com.cosmeticos.Views;
 
+import Conexao.TeclasPermitidas;
+import br.com.cosmeticos.Model.Pedido;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.table.DefaultTableModel;
 
 public class TelaPedido extends javax.swing.JFrame {
+
+    DefaultTableModel modelo;
 
     /**
      * Creates new form TelaPedido
      */
     public TelaPedido() {
         initComponents();
-        //  setExtendedState(MAXIMIZED_BOTH);
+        setExtendedState(MAXIMIZED_BOTH);
+        modelo = (DefaultTableModel) jtbPedido.getModel();
+        txtDesc.setDocument(new TeclasPermitidas());
     }
 
     /**
@@ -33,7 +40,7 @@ public class TelaPedido extends javax.swing.JFrame {
         jtbPedido = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         btnSalvar = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnEmail = new javax.swing.JButton();
         btnLimpar = new javax.swing.JButton();
         btnVoltar = new javax.swing.JButton();
         btnAdicionar = new javax.swing.JButton();
@@ -54,6 +61,11 @@ public class TelaPedido extends javax.swing.JFrame {
         jLabel2.setText("CÓDIGO");
 
         txtCodigo.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+        txtCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCodigoKeyTyped(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
         jLabel3.setText("DESCRIÇÃO");
@@ -64,50 +76,29 @@ public class TelaPedido extends javax.swing.JFrame {
         jLabel4.setText("QUANTIDADE");
 
         txtQntd.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+        txtQntd.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtQntdKeyTyped(evt);
+            }
+        });
 
         jtbPedido.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "CÓDIGO", "DESCRIÇÃO", "QUANTIDADE"
             }
         ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Object.class
-            };
             boolean[] canEdit = new boolean [] {
                 false, false, false
             };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jtbPedido.setRowHeight(30);
+        jtbPedido.setRowHeight(20);
         jScrollPane1.setViewportView(jtbPedido);
         if (jtbPedido.getColumnModel().getColumnCount() > 0) {
             jtbPedido.getColumnModel().getColumn(0).setMinWidth(5);
@@ -122,11 +113,21 @@ public class TelaPedido extends javax.swing.JFrame {
         btnSalvar.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
         btnSalvar.setForeground(new java.awt.Color(255, 255, 255));
         btnSalvar.setText("SALVAR");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
 
-        jButton1.setBackground(new java.awt.Color(0, 0, 0));
-        jButton1.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("EMAIL");
+        btnEmail.setBackground(new java.awt.Color(0, 0, 0));
+        btnEmail.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+        btnEmail.setForeground(new java.awt.Color(255, 255, 255));
+        btnEmail.setText("EMAIL");
+        btnEmail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEmailActionPerformed(evt);
+            }
+        });
 
         btnLimpar.setBackground(new java.awt.Color(0, 0, 0));
         btnLimpar.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
@@ -156,7 +157,7 @@ public class TelaPedido extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(btnSalvar)
                 .addGap(132, 132, 132)
-                .addComponent(jButton1)
+                .addComponent(btnEmail)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnLimpar)
                 .addGap(103, 103, 103)
@@ -170,7 +171,7 @@ public class TelaPedido extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(171, Short.MAX_VALUE))
         );
@@ -240,7 +241,7 @@ public class TelaPedido extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(btnAdicionar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -249,17 +250,19 @@ public class TelaPedido extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
         // setar campos na tabela
         //preenchendo linhas e colunas da tabela com os valores do formulário
+        //addRow = adiciona os itens em cada linha da tabela
+        modelo.addRow(new Object[]{txtCodigo.getText(), txtDesc.getText(), txtQntd.getText()});
 
-        jtbPedido.setValueAt(txtCodigo.getText(), 0, 0);
-        jtbPedido.setValueAt(txtDesc.getText(), 0, 1);
-        jtbPedido.setValueAt(txtQntd.getText(), 0, 2);
-
+        //limpar campos
         txtCodigo.setText(null);
         txtDesc.setText(null);
         txtQntd.setText(null);
+        
+        txtCodigo.requestFocus();
 
 
     }//GEN-LAST:event_btnAdicionarActionPerformed
@@ -272,9 +275,12 @@ public class TelaPedido extends javax.swing.JFrame {
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
         // limpa os campos
-        txtCodigo.setText(null);
-        txtDesc.setText(null);
-        txtQntd.setText(null);
+//        txtCodigo.setText(null);
+//        txtDesc.setText(null);
+//        txtQntd.setText(null);
+
+        //metodo para apagar a linha selecionada da tabela
+        ((DefaultTableModel) jtbPedido.getModel()).removeRow(jtbPedido.getSelectedRow());
     }//GEN-LAST:event_btnLimparActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
@@ -283,6 +289,39 @@ public class TelaPedido extends javax.swing.JFrame {
         SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy");
         lblData.setText(dt.format(sysDate));
     }//GEN-LAST:event_formWindowActivated
+
+    private void btnEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmailActionPerformed
+        // manda para tela de pesquisa pedido
+        TelaPesquisaPedidoProd tpp = new TelaPesquisaPedidoProd();
+        tpp.setVisible(true);
+    }//GEN-LAST:event_btnEmailActionPerformed
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        // prepara para salvar dados no banco
+        
+        Pedido pedido = new Pedido();
+        
+         //pegando o valor da caixa de texto do formulário        
+//        pedido.setCodigo(jtbPedido.getTableHeader().toString());
+//        pedido.setDescricao(txtEndCli.getText());
+//        pedido.setQntd(txtSalao.getText());
+    }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void txtCodigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyTyped
+        // digita somente numeros
+        String caracteres = "0987654321";
+        if (!caracteres.contains(evt.getKeyChar() + "")) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtCodigoKeyTyped
+
+    private void txtQntdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQntdKeyTyped
+       // digita somente numeros
+        String caracteres = "0987654321";
+        if (!caracteres.contains(evt.getKeyChar() + "")) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtQntdKeyTyped
 
     /**
      * @param args the command line arguments
@@ -321,10 +360,10 @@ public class TelaPedido extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionar;
+    private javax.swing.JButton btnEmail;
     private javax.swing.JButton btnLimpar;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JButton btnVoltar;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -11,9 +11,10 @@ public class Cliente {
     private String celular;
     private String cpf;
 
-    public Cliente() {
+    public Cliente() {//construtor padrão
     }
 
+    //construtor para inicializar as variáveis
     public Cliente(int idCliente, String nome, String endereco, String salao, int numero, String email, String celular, String cpf) {
         this.idCliente = idCliente;
         this.nome = nome;
