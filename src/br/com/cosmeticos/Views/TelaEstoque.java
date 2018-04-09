@@ -1,11 +1,17 @@
-
 package br.com.cosmeticos.Views;
 
 import Conexao.TeclasPermitidas;
+import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.JOptionPane;
+import Conexao.ConectaBanco;
 
 public class TelaEstoque extends javax.swing.JFrame {
+
+    Connection conexao = null;
+    PreparedStatement pst = null;
+    ResultSet rs = null;
 
     /**
      * Creates new form TelaEstoque
@@ -13,6 +19,7 @@ public class TelaEstoque extends javax.swing.JFrame {
     public TelaEstoque() {
         initComponents();
         txtProduto.setDocument(new TeclasPermitidas());
+        conexao = ConectaBanco.getConnection();
     }
 
     /**
@@ -32,10 +39,11 @@ public class TelaEstoque extends javax.swing.JFrame {
         txtProduto = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         txtQntd = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
         btnVoltar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         txtValorUni = new javax.swing.JTextField();
+        txtId = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -56,6 +64,11 @@ public class TelaEstoque extends javax.swing.JFrame {
         jLabel3.setText("CÓDIGO");
 
         txtCodigo.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+        txtCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCodigoKeyTyped(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
         jLabel4.setText("PRODUTO");
@@ -73,10 +86,15 @@ public class TelaEstoque extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(0, 0, 0));
-        jButton1.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("BUSCAR");
+        btnBuscar.setBackground(new java.awt.Color(0, 0, 0));
+        btnBuscar.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+        btnBuscar.setForeground(new java.awt.Color(255, 255, 255));
+        btnBuscar.setText("BUSCAR");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         btnVoltar.setBackground(new java.awt.Color(0, 0, 0));
         btnVoltar.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
@@ -98,12 +116,16 @@ public class TelaEstoque extends javax.swing.JFrame {
             }
         });
 
+        txtId.setFont(new java.awt.Font("Tahoma", 0, 3)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -120,17 +142,18 @@ public class TelaEstoque extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtProduto)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(70, 70, 70)
-                                        .addComponent(jButton1)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(txtQntd, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(65, 65, 65)
-                                        .addComponent(jLabel2)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(txtValorUni, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 45, Short.MAX_VALUE)))))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(70, 70, 70)
+                                                .addComponent(btnBuscar))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(txtQntd, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(65, 65, 65)
+                                                .addComponent(jLabel2)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(txtValorUni, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGap(0, 39, Short.MAX_VALUE)))))
                         .addGap(80, 80, 80))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -148,7 +171,7 @@ public class TelaEstoque extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(btnBuscar))
                 .addGap(52, 52, 52)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -162,6 +185,10 @@ public class TelaEstoque extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                 .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txtId)
+                .addGap(77, 77, 77))
         );
 
         pack();
@@ -181,7 +208,7 @@ public class TelaEstoque extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVoltarActionPerformed
 
     private void txtQntdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQntdKeyTyped
-         // metodo mostra somente numeros
+//         // metodo mostra somente numeros
         String caracteres = "0987654321";
         if (!caracteres.contains(evt.getKeyChar() + "")) {
             evt.consume();
@@ -189,12 +216,54 @@ public class TelaEstoque extends javax.swing.JFrame {
     }//GEN-LAST:event_txtQntdKeyTyped
 
     private void txtValorUniKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorUniKeyTyped
-         // metodo mostra somente numeros
-        String caracteres = "0987654321";
+//         // metodo mostra somente numeros
+        String caracteres = "0987654321.";
         if (!caracteres.contains(evt.getKeyChar() + "")) {
             evt.consume();
         }
     }//GEN-LAST:event_txtValorUniKeyTyped
+
+    private void txtCodigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyTyped
+        // metodo mostra somente numeros
+        String caracteres = "0987654321";
+        if (!caracteres.contains(evt.getKeyChar() + "")) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtCodigoKeyTyped
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        // chamando metodo para busca
+        pesquisarProduto();
+
+    
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    public void pesquisarProduto() {
+
+        try {
+            String sql = "select * from cosmetico.produto where codigo = ?";
+            pst = conexao.prepareStatement(sql);
+
+            //passando o conteudo da caixa de pesquisa para o ?
+            pst.setInt(1, Integer.parseInt(txtCodigo.getText()));
+            rs = pst.executeQuery();//executa a query no banco
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao pesquisar");
+        }
+    }
+    //metodo para setar os campos no formulario
+    public void setarCampos() {
+
+        txtId.setText(txtId.getText());
+        txtCodigo.setText(txtCodigo.getText());
+        txtProduto.setText(txtProduto.getText());
+        txtQntd.setText(txtQntd.getText());
+        txtValorUni.setText(txtValorUni.getText());
+
+    }
+
+ 
 
     /**
      * @param args the command line arguments
@@ -232,8 +301,8 @@ public class TelaEstoque extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnVoltar;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -241,6 +310,7 @@ public class TelaEstoque extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel lblData;
     private javax.swing.JTextField txtCodigo;
+    private javax.swing.JLabel txtId;
     private javax.swing.JTextField txtProduto;
     private javax.swing.JTextField txtQntd;
     private javax.swing.JTextField txtValorUni;

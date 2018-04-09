@@ -4,7 +4,12 @@ import Conexao.ConectaBanco;
 import br.com.cosmeticos.Model.Cliente;
 import java.sql.*;
 
+
 public class ClienteDAO {
+
+    Connection conexao = null;
+    PreparedStatement pst = null;
+    ResultSet rs = null;
 
     public Connection c;
 
@@ -12,7 +17,7 @@ public class ClienteDAO {
         this.c = new ConectaBanco().getConnection();
     }
 
-    public void adicionarCliente(Cliente cliente) {            
+    public void adicionarCliente(Cliente cliente) {
 
         try {
 //instrução sql = BD
@@ -88,11 +93,10 @@ public class ClienteDAO {
             pst.setString(1, cliente.getNome());
             pst.setString(2, cliente.getEndereco());
             pst.setString(3, cliente.getSalao());
-            pst.setInt(4, cliente.getNumero());            
+            pst.setInt(4, cliente.getNumero());
             pst.setString(5, cliente.getEmail());
             pst.setString(6, cliente.getCelular());
             pst.setInt(7, cliente.getIdCliente());
-            
 
             pst.execute();
             pst.close();//fechar a conexao
@@ -101,4 +105,26 @@ public class ClienteDAO {
         }
     }
 
+    public boolean buscaCpf(Cliente cliente) {
+
+        boolean achou = false;
+
+        try {
+            String sql = "select * from cosmetico.cliente where cpf = ?";
+            PreparedStatement pst = c.prepareStatement(sql);
+            pst.setString(1, cliente.getCpf());
+            ResultSet rs = pst.executeQuery();
+
+            if (rs.next()) {
+                achou = true;
+            }
+
+            rs.close();
+            pst.close();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return achou;
+    }
 }

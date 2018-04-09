@@ -314,7 +314,7 @@ public class TelaVenda extends javax.swing.JFrame {
 
     private void txtValorVendaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorVendaKeyTyped
         // digita somente numeros
-        String caracteres = "0987654321";
+        String caracteres = "0987654321,.";
         if (!caracteres.contains(evt.getKeyChar() + "")) {
             evt.consume();
         }
@@ -322,7 +322,7 @@ public class TelaVenda extends javax.swing.JFrame {
 
     private void txtTotalVendKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTotalVendKeyTyped
         // digita somente numeros
-        String caracteres = "0987654321";
+        String caracteres = "0987654321,.";
         if (!caracteres.contains(evt.getKeyChar() + "")) {
             evt.consume();
         }

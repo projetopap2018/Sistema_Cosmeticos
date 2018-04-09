@@ -248,7 +248,7 @@ public class TelaProduto extends javax.swing.JFrame {
 
     private void txtValorUniKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorUniKeyTyped
          // digita somente numeros
-        String caracteres = "0987654321";
+        String caracteres = "0987654321,.";
         if (!caracteres.contains(evt.getKeyChar() + "")) {
             evt.consume();
         }
