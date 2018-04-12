@@ -88,26 +88,7 @@ public class TelaPesquisaCliente extends javax.swing.JFrame {
 
         jtbClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4"
@@ -242,9 +223,6 @@ public class TelaPesquisaCliente extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(txtNumero, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnVoltar)
-                                .addGap(13, 690, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 916, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
@@ -255,7 +233,11 @@ public class TelaPesquisaCliente extends javax.swing.JFrame {
                                         .addGap(18, 18, 18)
                                         .addComponent(jLabel7)))
                                 .addGap(18, 18, 18)
-                                .addComponent(txtDataCadCli)))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtDataCadCli)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(btnVoltar)))))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -410,8 +392,8 @@ public class TelaPesquisaCliente extends javax.swing.JFrame {
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
         // voltar para tela principal
-        TelaPrincipal tp = new TelaPrincipal();
-        tp.setVisible(true);
+        TelaCliente tc = new TelaCliente();
+        tc.setVisible(true);
     }//GEN-LAST:event_btnVoltarActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated

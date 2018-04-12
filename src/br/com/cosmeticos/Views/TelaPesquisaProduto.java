@@ -8,7 +8,9 @@ import java.awt.HeadlessException;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
-import net.proteanit.sql.DbUtils;//importa recursos da biblioteca rs2xml.jar
+//importa recursos da biblioteca rs2xml.jar, para mandar os dados para a tabela
+
+import net.proteanit.sql.DbUtils;
 
 public class TelaPesquisaProduto extends javax.swing.JFrame {
 
@@ -74,26 +76,7 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
 
         jtbPesq.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4"
@@ -314,8 +297,8 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
 
     private void btnVoltarTpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarTpActionPerformed
         //volta tela principal
-        TelaPrincipal tp = new TelaPrincipal();
-        tp.setVisible(true);
+        TelaProduto tpd = new TelaProduto();
+        tpd.setVisible(true);
     }//GEN-LAST:event_btnVoltarTpActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
