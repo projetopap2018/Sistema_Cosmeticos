@@ -263,7 +263,7 @@ public class TelaCliente extends javax.swing.JFrame {
 
         Cliente cliente = new Cliente();//instanciar cliente
         ClienteDAO clienteDao = new ClienteDAO();//chamar DAO para inserção no BD
-        cliente.setCpf(txtCPF.getText());//traz campo do formulario CPF 
+        cliente.setCpf(txtCPF.getText());//traz campo CPF INFORMADO NO FORMULÁRIO 
         if (clienteDao.buscaCpf(cliente) == true) {//verifica cpf cadastrado no banco
             JOptionPane.showMessageDialog(null, "CLIENTE JÁ CADASTRADO!");
         } else {
