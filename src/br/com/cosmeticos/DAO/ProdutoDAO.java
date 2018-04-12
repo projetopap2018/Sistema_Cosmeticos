@@ -62,5 +62,29 @@ public class ProdutoDAO {
             throw new RuntimeException(e);
         }
     }
+    
+      public boolean buscaProduto(Produto produto ) {
+
+        boolean achou = false;
+
+        try {
+            String sql = "select * from cosmetico.produto where codigo = ?";
+            PreparedStatement pst = c.prepareStatement(sql);
+            pst.setInt(1, produto.getCodigo());
+            ResultSet rs = pst.executeQuery();
+
+            if (rs.next()) {
+                achou = true;
+            }
+
+            rs.close();
+            pst.close();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return achou;
+    }
+
 
 }

@@ -198,30 +198,34 @@ public class TelaProduto extends javax.swing.JFrame {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         // chama metodo adicionarProduto
-        try {
-            Produto produto = new Produto();//INSTANCIA O PRODUTO
-//PEGA OS VALORES DO FORMULARIO E GRAVA NO BD
+
+        Produto produto = new Produto();//INSTANCIA O PRODUTO
+        ProdutoDAO produtoDAO = new ProdutoDAO();//CHAMA A CLASSE PRODUTO DAO E ACESSA O METODO PARA ADICIONAR NO BD
+        produto.setCodigo(Integer.parseInt(txtCodigo.getText()));//pega valor do campo
+        
+        if (produtoDAO.buscaProduto(produto) == true) {//verifica produto ja cadastrado no bd
+            JOptionPane.showMessageDialog(null, "PRODUTO JÁ CADASTRADO!");
+        } else {
+            //PEGA OS VALORES DO FORMULARIO E GRAVA NO BD
             produto.setCodigo(Integer.parseInt(txtCodigo.getText()));
             produto.setDescricao(txtDescriProd.getText());
             produto.setQntd(Integer.parseInt(txtQntProd.getText()));
             produto.setValorUni(Float.parseFloat(txtValorUni.getText().replace(",", ".")));//replace - substitui a virgula pelo ponto
 
-            ProdutoDAO produtoDAO = new ProdutoDAO();//CHAMA A CLASSE PRODUTO DAO E ACESSA O METODO PARA ADICIONAR NO BD
             produtoDAO.adcionarProduto(produto);
+            produtoDAO.buscaProduto(produto);
 
             JOptionPane.showMessageDialog(null, "PRODUTO CADASTRADO!");
-
-            //LIMPAR OS CAMPOS DEPOIS DE SALVAR
-            txtCodigo.setText(null);
-            txtDescriProd.setText(null);
-            txtQntProd.setText(null);
-            txtValorUni.setText(null);
-            
-            txtCodigo.requestFocus();
-
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "ERRO AO CADASTRAR O PRODUTO !");
         }
+
+        //LIMPAR OS CAMPOS DEPOIS DE SALVAR
+        txtCodigo.setText(null);
+        txtDescriProd.setText(null);
+        txtQntProd.setText(null);
+        txtValorUni.setText(null);
+
+        txtCodigo.requestFocus();
+
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnPesqProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesqProdActionPerformed
@@ -247,7 +251,7 @@ public class TelaProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCodigoKeyTyped
 
     private void txtValorUniKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorUniKeyTyped
-         // digita somente numeros
+        // digita somente numeros
         String caracteres = "0987654321,.";
         if (!caracteres.contains(evt.getKeyChar() + "")) {
             evt.consume();
@@ -255,7 +259,7 @@ public class TelaProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_txtValorUniKeyTyped
 
     private void txtQntProdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQntProdKeyTyped
-         // digita somente numeros
+        // digita somente numeros
         String caracteres = "0987654321";
         if (!caracteres.contains(evt.getKeyChar() + "")) {
             evt.consume();

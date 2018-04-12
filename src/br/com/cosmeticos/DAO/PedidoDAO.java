@@ -2,6 +2,7 @@
 package br.com.cosmeticos.DAO;
 
 import Conexao.ConectaBanco;
+import br.com.cosmeticos.Model.Cliente;
 import br.com.cosmeticos.Model.Pedido;
 import java.sql.*;
 
@@ -63,5 +64,6 @@ public class PedidoDAO {
             throw new RuntimeException(e);
         }
     }
-
+    
+    
 }
