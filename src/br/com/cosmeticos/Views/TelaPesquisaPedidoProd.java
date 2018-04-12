@@ -303,8 +303,8 @@ public class TelaPesquisaPedidoProd extends javax.swing.JFrame {
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
         // volta para tela principal
-        TelaPrincipal tp = new TelaPrincipal();
-        tp.setVisible(true);
+        TelaPedido telaPedido = new TelaPedido();
+        telaPedido.setVisible(true);
     }//GEN-LAST:event_btnVoltarActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed

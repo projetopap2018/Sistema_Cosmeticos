@@ -14,7 +14,7 @@ public class TelaProduto extends javax.swing.JFrame {
      */
     public TelaProduto() {
         initComponents();
-        //   setExtendedState(MAXIMIZED_BOTH);
+        setExtendedState(MAXIMIZED_BOTH);
         txtDescriProd.setDocument(new TeclasPermitidas());
     }
 

@@ -99,26 +99,7 @@ public class TelaVenda extends javax.swing.JFrame {
         jTableVenda.setForeground(new java.awt.Color(255, 255, 255));
         jTableVenda.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "CLIENTE", "PRODUTO", "QNTD", "VALOR", "DATA"
@@ -140,8 +121,9 @@ public class TelaVenda extends javax.swing.JFrame {
             }
         });
         jTableVenda.setGridColor(new java.awt.Color(0, 0, 0));
-        jTableVenda.setRowHeight(30);
-        jTableVenda.setRowMargin(-20);
+        jTableVenda.setRowHeight(30
+        );
+        jTableVenda.setRowMargin(1);
         jTableVenda.setSelectionBackground(new java.awt.Color(0, 0, 0));
         jTableVenda.setSelectionForeground(new java.awt.Color(0, 0, 0));
         jScrollPane1.setViewportView(jTableVenda);

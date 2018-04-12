@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import Conexao.ConectaBanco;
+import br.com.cosmeticos.Model.Produto;
 
 public class TelaEstoque extends javax.swing.JFrame {
 
@@ -20,6 +21,7 @@ public class TelaEstoque extends javax.swing.JFrame {
         initComponents();
         txtProduto.setDocument(new TeclasPermitidas());
         conexao = ConectaBanco.getConnection();
+        setExtendedState(MAXIMIZED_BOTH);
     }
 
     /**
@@ -233,37 +235,68 @@ public class TelaEstoque extends javax.swing.JFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // chamando metodo para busca
-        pesquisarProduto();
+        Produto produto = new Produto();
+        produto.setCodigo(Integer.parseInt(txtCodigo.getText()));//pega valor do campo
+        if (txtCodigo.getText() != null) {
+            txtId.setText(txtId.getText());
+            txtProduto.setText(txtProduto.getText());
+            txtQntd.setText(txtQntd.getText());
+            txtValorUni.setText(txtValorUni.getText());
+            
+            buscaProduto(produto);
+        } else {
+            JOptionPane.showMessageDialog(null, "PRODUTO NÃO CADASTRADO!");
+        }
 
-    
+
     }//GEN-LAST:event_btnBuscarActionPerformed
 
-    public void pesquisarProduto() {
+//    public void pesquisarProduto() {
+//
+//        try {
+//            String sql = "select * from cosmetico.produto where codigo = ?";
+//            pst = conexao.prepareStatement(sql);
+//
+//            //passando o conteudo da caixa de pesquisa para o ?
+//            pst.setInt(1, Integer.parseInt(txtCodigo.getText()));
+//            rs = pst.executeQuery();//executa a query no banco
+//
+//        } catch (SQLException e) {
+//            JOptionPane.showMessageDialog(null, "Erro ao pesquisar");
+//        }
+//    }
+//    //metodo para setar os campos no formulario
+//    public void setarCampos() {
+//
+//        txtId.setText(txtId.getText());
+//        txtCodigo.setText(txtCodigo.getText());
+//        txtProduto.setText(txtProduto.getText());
+//        txtQntd.setText(txtQntd.getText());
+//        txtValorUni.setText(txtValorUni.getText());
+//
+//    }
+    public boolean buscaProduto(Produto produto) {
+
+        boolean achou = false;
 
         try {
             String sql = "select * from cosmetico.produto where codigo = ?";
-            pst = conexao.prepareStatement(sql);
+            PreparedStatement pst = conexao.prepareStatement(sql);
+            pst.setInt(1, produto.getCodigo());
+            ResultSet rs = pst.executeQuery();
 
-            //passando o conteudo da caixa de pesquisa para o ?
-            pst.setInt(1, Integer.parseInt(txtCodigo.getText()));
-            rs = pst.executeQuery();//executa a query no banco
+            if (rs.next()) {
+                achou = true;
+            }
+
+            rs.close();
+            pst.close();
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao pesquisar");
+            throw new RuntimeException(e);
         }
+        return achou;
     }
-    //metodo para setar os campos no formulario
-    public void setarCampos() {
-
-        txtId.setText(txtId.getText());
-        txtCodigo.setText(txtCodigo.getText());
-        txtProduto.setText(txtProduto.getText());
-        txtQntd.setText(txtQntd.getText());
-        txtValorUni.setText(txtValorUni.getText());
-
-    }
-
- 
 
     /**
      * @param args the command line arguments
