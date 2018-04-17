@@ -86,15 +86,16 @@ public class TelaPesquisaCliente extends javax.swing.JFrame {
 
         jScrollPane2.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
 
+        jtbClientes.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
         jtbClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "", "", "", ""
             }
         ));
-        jtbClientes.setRowHeight(30
+        jtbClientes.setRowHeight(50
         );
         jtbClientes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -299,7 +300,8 @@ public class TelaPesquisaCliente extends javax.swing.JFrame {
     private void pesquisarClientePorNome() {
 
         try {
-            String sql = "select * from cosmetico.Cliente where nome like ?";
+            String sql = "select nome as NOME, endereco as ENDEREÇO, salao as SALAO,numero as NÚMERO,"
+                    + "email as EMAIL,celular as CELULAR,data as DATA from cosmetico.Cliente where nome like ?";
             pst = conexao.prepareStatement(sql);
 
             //passando o conteudo da caixa de pesquisa para o ?
@@ -316,14 +318,14 @@ public class TelaPesquisaCliente extends javax.swing.JFrame {
     //metodo para setar os campos da tabela no formulario
     private void setarCampos() {
         int setar = jtbClientes.getSelectedRow();
-        txtId.setText(jtbClientes.getModel().getValueAt(setar, 0).toString());
-        txtNome.setText(jtbClientes.getModel().getValueAt(setar, 1).toString());
-        txtEnd.setText(jtbClientes.getModel().getValueAt(setar, 2).toString());
-        txtSalao.setText(jtbClientes.getModel().getValueAt(setar, 3).toString());
-        txtNumero.setText(jtbClientes.getModel().getValueAt(setar, 4).toString());
-        txtEmail.setText(jtbClientes.getModel().getValueAt(setar, 5).toString());
-        txtCel.setText(jtbClientes.getModel().getValueAt(setar, 6).toString());
-        txtDataCadCli.setText(jtbClientes.getModel().getValueAt(setar, 8).toString());
+
+        txtNome.setText(jtbClientes.getModel().getValueAt(setar, 0).toString());
+        txtEnd.setText(jtbClientes.getModel().getValueAt(setar,1).toString());
+        txtSalao.setText(jtbClientes.getModel().getValueAt(setar, 2).toString());
+        txtNumero.setText(jtbClientes.getModel().getValueAt(setar, 3).toString());
+        txtEmail.setText(jtbClientes.getModel().getValueAt(setar, 4).toString());
+        txtCel.setText(jtbClientes.getModel().getValueAt(setar, 5).toString());
+        txtDataCadCli.setText(jtbClientes.getModel().getValueAt(setar,6).toString());
     }
 
     private void btnBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaActionPerformed

@@ -4,6 +4,7 @@ package br.com.cosmeticos.DAO;
 import Conexao.ConectaBanco;
 import br.com.cosmeticos.Model.Cliente;
 import br.com.cosmeticos.Model.Pedido;
+import br.com.cosmeticos.Model.Produto;
 import java.sql.*;
 
 public class PedidoDAO {
@@ -63,6 +64,29 @@ public class PedidoDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+    
+     public boolean buscaPedido(Pedido pedido) {
+
+        boolean achou = false;
+
+        try {
+            String sql = "select * from cosmetico.pedido where codigo = ?";
+            PreparedStatement pst = c.prepareStatement(sql);
+            pst.setInt(1, pedido.getCodigo());
+            ResultSet rs = pst.executeQuery();
+
+            if (rs.next()) {
+                achou = true;
+            }
+
+            rs.close();
+            pst.close();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return achou;
     }
     
     

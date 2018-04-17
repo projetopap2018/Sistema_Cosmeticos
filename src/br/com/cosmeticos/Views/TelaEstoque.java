@@ -4,9 +4,10 @@ import Conexao.TeclasPermitidas;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import javax.swing.JOptionPane;
 import Conexao.ConectaBanco;
-import br.com.cosmeticos.Model.Produto;
+import javax.swing.JOptionPane;
+//importa recursos da biblioteca rs2xml.jar
+import net.proteanit.sql.DbUtils;
 
 public class TelaEstoque extends javax.swing.JFrame {
 
@@ -20,6 +21,7 @@ public class TelaEstoque extends javax.swing.JFrame {
     public TelaEstoque() {
         initComponents();
         txtProduto.setDocument(new TeclasPermitidas());
+        txtPesq.setDocument(new TeclasPermitidas());
         conexao = ConectaBanco.getConnection();
         setExtendedState(MAXIMIZED_BOTH);
     }
@@ -43,11 +45,14 @@ public class TelaEstoque extends javax.swing.JFrame {
         txtQntd = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
         btnVoltar = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        txtValorUni = new javax.swing.JTextField();
         txtId = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        txtPesq = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jtbEstoque = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1204, 929));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -108,17 +113,37 @@ public class TelaEstoque extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
-        jLabel2.setText("VALOR UNI");
+        txtId.setFont(new java.awt.Font("Tahoma", 0, 3)); // NOI18N
 
-        txtValorUni.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
-        txtValorUni.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtValorUniKeyTyped(evt);
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 3)); // NOI18N
+        jLabel6.setText("jLabel6");
+
+        txtPesq.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+
+        jtbEstoque.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+        jtbEstoque.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "", "", ""
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
-
-        txtId.setFont(new java.awt.Font("Tahoma", 0, 3)); // NOI18N
+        jtbEstoque.setRowHeight(50);
+        jtbEstoque.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtbEstoqueMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jtbEstoque);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -126,71 +151,78 @@ public class TelaEstoque extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(btnVoltar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblData, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(lblData, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(51, 51, 51))
+                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel5))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtProduto)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(70, 70, 70)
-                                                .addComponent(btnBuscar))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(txtQntd, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(65, 65, 65)
-                                                .addComponent(jLabel2)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(txtValorUni, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addGap(0, 39, Short.MAX_VALUE)))))
-                        .addGap(80, 80, 80))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnVoltar)
-                        .addGap(221, 221, 221))))
+                                            .addComponent(jLabel4)
+                                            .addComponent(jLabel5)
+                                            .addComponent(jLabel3))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtQntd, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(txtPesq, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnBuscar))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(259, 259, 259)
+                                        .addComponent(txtProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 736, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)))
+                        .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(lblData))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscar))
-                .addGap(52, 52, 52)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(64, 64, 64)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(txtQntd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtValorUni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
-                .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(txtId)
-                .addGap(77, 77, 77))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 387, Short.MAX_VALUE)
+                        .addComponent(txtId)
+                        .addGap(279, 279, 279)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(35, 35, 35))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(lblData))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnBuscar)
+                            .addComponent(txtPesq, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel3)
+                                    .addComponent(txtQntd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(46, 46, 46)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel4)
+                                    .addComponent(txtProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(61, 61, 61)
+                                .addComponent(jLabel5))
+                            .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         pack();
@@ -217,14 +249,6 @@ public class TelaEstoque extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtQntdKeyTyped
 
-    private void txtValorUniKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorUniKeyTyped
-//         // metodo mostra somente numeros
-        String caracteres = "0987654321.";
-        if (!caracteres.contains(evt.getKeyChar() + "")) {
-            evt.consume();
-        }
-    }//GEN-LAST:event_txtValorUniKeyTyped
-
     private void txtCodigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyTyped
         // metodo mostra somente numeros
         String caracteres = "0987654321";
@@ -235,67 +259,37 @@ public class TelaEstoque extends javax.swing.JFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // chamando metodo para busca
-        Produto produto = new Produto();
-        produto.setCodigo(Integer.parseInt(txtCodigo.getText()));//pega valor do campo
-        if (txtCodigo.getText() != null) {
-            txtId.setText(txtId.getText());
-            txtProduto.setText(txtProduto.getText());
-            txtQntd.setText(txtQntd.getText());
-            txtValorUni.setText(txtValorUni.getText());
-            
-            buscaProduto(produto);
-        } else {
-            JOptionPane.showMessageDialog(null, "PRODUTO NÃO CADASTRADO!");
-        }
-
-
+        buscarProddutoEstoque();
     }//GEN-LAST:event_btnBuscarActionPerformed
 
-//    public void pesquisarProduto() {
-//
-//        try {
-//            String sql = "select * from cosmetico.produto where codigo = ?";
-//            pst = conexao.prepareStatement(sql);
-//
-//            //passando o conteudo da caixa de pesquisa para o ?
-//            pst.setInt(1, Integer.parseInt(txtCodigo.getText()));
-//            rs = pst.executeQuery();//executa a query no banco
-//
-//        } catch (SQLException e) {
-//            JOptionPane.showMessageDialog(null, "Erro ao pesquisar");
-//        }
-//    }
-//    //metodo para setar os campos no formulario
-//    public void setarCampos() {
-//
-//        txtId.setText(txtId.getText());
-//        txtCodigo.setText(txtCodigo.getText());
-//        txtProduto.setText(txtProduto.getText());
-//        txtQntd.setText(txtQntd.getText());
-//        txtValorUni.setText(txtValorUni.getText());
-//
-//    }
-    public boolean buscaProduto(Produto produto) {
+    private void jtbEstoqueMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbEstoqueMouseClicked
+        // metodo para mandar os dados da linha clicada para o formulario
+        setarCampos();
+    }//GEN-LAST:event_jtbEstoqueMouseClicked
 
-        boolean achou = false;
+    private void buscarProddutoEstoque() {
 
         try {
-            String sql = "select * from cosmetico.produto where codigo = ?";
-            PreparedStatement pst = conexao.prepareStatement(sql);
-            pst.setInt(1, produto.getCodigo());
-            ResultSet rs = pst.executeQuery();
-
-            if (rs.next()) {
-                achou = true;
-            }
-
-            rs.close();
-            pst.close();
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+            String sql = "select codigo as CODIGO_PRODUTO, descricao as PRODUTO,"
+                    + " qntd as QNTD from cosmetico.produto where descricao like ?";
+            pst = conexao.prepareStatement(sql);
+            //passando o conteudo da caixa de pesquisa para o ?
+            //atencao ao % que e a continuação da string sql
+            pst.setString(1, txtPesq.getText() + "%");
+            rs = pst.executeQuery();//executa a query no banco
+            //a linha abaixo usa a biblioteca rs2xml.jar para preencher a tabela
+            jtbEstoque.setModel(DbUtils.resultSetToTableModel(rs));
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao pesquisar");
         }
-        return achou;
+    }
+
+    private void setarCampos() {
+        int setar = jtbEstoque.getSelectedRow();
+
+        txtCodigo.setText(jtbEstoque.getModel().getValueAt(setar, 2).toString());
+        txtProduto.setText(jtbEstoque.getModel().getValueAt(setar, 1).toString());
+        txtQntd.setText(jtbEstoque.getModel().getValueAt(setar, 0).toString());
     }
 
     /**
@@ -337,15 +331,17 @@ public class TelaEstoque extends javax.swing.JFrame {
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnVoltar;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jtbEstoque;
     private javax.swing.JLabel lblData;
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JLabel txtId;
+    private javax.swing.JTextField txtPesq;
     private javax.swing.JTextField txtProduto;
     private javax.swing.JTextField txtQntd;
-    private javax.swing.JTextField txtValorUni;
     // End of variables declaration//GEN-END:variables
 }

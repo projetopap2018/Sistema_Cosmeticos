@@ -9,7 +9,6 @@ import java.sql.*;
 import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 //importa recursos da biblioteca rs2xml.jar, para mandar os dados para a tabela
-
 import net.proteanit.sql.DbUtils;
 
 public class TelaPesquisaProduto extends javax.swing.JFrame {
@@ -74,21 +73,40 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
             }
         });
 
+        jtbPesq.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
         jtbPesq.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "", "", "", ""
             }
-        ));
-        jtbPesq.setRowHeight(30);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jtbPesq.setRowHeight(60
+        );
         jtbPesq.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jtbPesqMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(jtbPesq);
+        if (jtbPesq.getColumnModel().getColumnCount() > 0) {
+            jtbPesq.getColumnModel().getColumn(0).setMinWidth(50);
+            jtbPesq.getColumnModel().getColumn(0).setPreferredWidth(50);
+            jtbPesq.getColumnModel().getColumn(0).setMaxWidth(50);
+            jtbPesq.getColumnModel().getColumn(2).setMinWidth(250);
+            jtbPesq.getColumnModel().getColumn(2).setPreferredWidth(250);
+            jtbPesq.getColumnModel().getColumn(3).setMinWidth(450);
+            jtbPesq.getColumnModel().getColumn(3).setPreferredWidth(450);
+        }
 
         btnAlterar.setBackground(new java.awt.Color(0, 0, 0));
         btnAlterar.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
@@ -268,7 +286,8 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
     private void pesquisarProduto() {
 
         try {
-            String sql = "select * from cosmetico.produto where  descricao like ?";
+            String sql = "select codigo as CÓDIGO,descricao as DESCRIÇÃO, valorUni as VALOR_UNITÁRIO,qntd as QNTD,"
+                    + "data as DATA from cosmetico.Produto where  descricao like ?";
 //            String sql = "select * from cosmetico.produto where  codigo =  ?";
             pst = conexao.prepareStatement(sql);
 
@@ -286,12 +305,12 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
     //metodo para setar os campos da tabela no formulario
     private void setarCampos() {
         int setar = jtbPesq.getSelectedRow();
-        txtId.setText(jtbPesq.getModel().getValueAt(setar, 0).toString());
-        txtCodigo.setText(jtbPesq.getModel().getValueAt(setar, 1).toString());
-        txtDesc.setText(jtbPesq.getModel().getValueAt(setar, 2).toString());
-        txtQntd.setText(jtbPesq.getModel().getValueAt(setar, 4).toString());
-        txtValorUni.setText(jtbPesq.getModel().getValueAt(setar, 3).toString());
-        txtData.setText(jtbPesq.getModel().getValueAt(setar, 5).toString());
+
+        txtCodigo.setText(jtbPesq.getModel().getValueAt(setar, 0).toString());
+        txtDesc.setText(jtbPesq.getModel().getValueAt(setar, 1).toString());
+        txtValorUni.setText(jtbPesq.getModel().getValueAt(setar, 2).toString());
+        txtQntd.setText(jtbPesq.getModel().getValueAt(setar, 3).toString());
+        txtData.setText(jtbPesq.getModel().getValueAt(setar, 4).toString());
 
     }
 

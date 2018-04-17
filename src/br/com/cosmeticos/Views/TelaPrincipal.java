@@ -44,7 +44,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         btnCliente = new javax.swing.JButton();
         btnSair = new javax.swing.JButton();
         btnTelaPedido = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnHisVenda = new javax.swing.JButton();
         lblData = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -117,10 +117,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(0, 0, 0));
-        jButton2.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("HIST/VENDAS");
+        btnHisVenda.setBackground(new java.awt.Color(0, 0, 0));
+        btnHisVenda.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+        btnHisVenda.setForeground(new java.awt.Color(255, 255, 255));
+        btnHisVenda.setText("HIST/VENDAS");
+        btnHisVenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHisVendaActionPerformed(evt);
+            }
+        });
 
         lblData.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
         lblData.setForeground(new java.awt.Color(255, 255, 255));
@@ -147,7 +152,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                                 .addGap(59, 59, 59)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(btnTelaPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                                    .addComponent(btnHisVenda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -171,7 +176,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                     .addComponent(btnVenda, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnHisVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -226,6 +231,12 @@ System.exit(0);
         te.setVisible(true);
     }//GEN-LAST:event_btnEstoqueActionPerformed
 
+    private void btnHisVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHisVendaActionPerformed
+        //chama tela historico de vendas
+        TelaHisVenda thv = new TelaHisVenda();
+        thv.setVisible(true);
+    }//GEN-LAST:event_btnHisVendaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -270,11 +281,11 @@ System.exit(0);
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCliente;
     private javax.swing.JButton btnEstoque;
+    private javax.swing.JButton btnHisVenda;
     private javax.swing.JButton btnProduto;
     private javax.swing.JButton btnSair;
     private javax.swing.JButton btnTelaPedido;
     private javax.swing.JButton btnVenda;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblData;
     // End of variables declaration//GEN-END:variables

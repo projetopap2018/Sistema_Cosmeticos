@@ -46,7 +46,7 @@
                               <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="btnTelaPedido" max="32767" attributes="0"/>
-                                  <Component id="jButton2" max="32767" attributes="0"/>
+                                  <Component id="btnHisVenda" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -80,7 +80,7 @@
                   <Component id="btnVenda" alignment="1" min="-2" pref="156" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnProduto" alignment="3" min="-2" pref="155" max="-2" attributes="0"/>
-                      <Component id="jButton2" alignment="3" min="-2" pref="156" max="-2" attributes="0"/>
+                      <Component id="btnHisVenda" alignment="3" min="-2" pref="156" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
@@ -200,7 +200,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTelaPedidoActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton2">
+    <Component class="javax.swing.JButton" name="btnHisVenda">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="0" red="0" type="rgb"/>
@@ -213,6 +213,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="HIST/VENDAS"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnHisVendaActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblData">
       <Properties>

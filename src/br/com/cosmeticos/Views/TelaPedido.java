@@ -1,9 +1,11 @@
 package br.com.cosmeticos.Views;
 
 import Conexao.TeclasPermitidas;
+import br.com.cosmeticos.DAO.PedidoDAO;
 import br.com.cosmeticos.Model.Pedido;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class TelaPedido extends javax.swing.JFrame {
@@ -47,6 +49,7 @@ public class TelaPedido extends javax.swing.JFrame {
         lblData = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(0, 0, 0));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -156,24 +159,24 @@ public class TelaPedido extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnSalvar)
-                .addGap(132, 132, 132)
+                .addGap(160, 160, 160)
                 .addComponent(btnEmail)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnLimpar)
-                .addGap(103, 103, 103)
+                .addGap(100, 100, 100)
                 .addComponent(btnVoltar)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(49, 49, 49)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(94, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(171, Short.MAX_VALUE))
+                    .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(49, 49, 49))
         );
 
         btnAdicionar.setBackground(new java.awt.Color(0, 0, 0));
@@ -241,10 +244,10 @@ public class TelaPedido extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(btnAdicionar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(88, 88, 88))
         );
 
         pack();
@@ -261,7 +264,7 @@ public class TelaPedido extends javax.swing.JFrame {
         txtCodigo.setText(null);
         txtDesc.setText(null);
         txtQntd.setText(null);
-        
+
         txtCodigo.requestFocus();
 
 
@@ -275,12 +278,12 @@ public class TelaPedido extends javax.swing.JFrame {
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
         // limpa os campos
-//        txtCodigo.setText(null);
-//        txtDesc.setText(null);
-//        txtQntd.setText(null);
+        txtCodigo.setText(null);
+        txtDesc.setText(null);
+        txtQntd.setText(null);
 
         //metodo para apagar a linha selecionada da tabela
-        ((DefaultTableModel) jtbPedido.getModel()).removeRow(jtbPedido.getSelectedRow());
+//        ((DefaultTableModel) jtbPedido.getModel()).removeRow(jtbPedido.getSelectedRow());
     }//GEN-LAST:event_btnLimparActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
@@ -298,13 +301,29 @@ public class TelaPedido extends javax.swing.JFrame {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         // prepara para salvar dados no banco
-        
+
         Pedido pedido = new Pedido();
+        PedidoDAO pedidoDAO = new PedidoDAO();
+        pedido.setCodigo(Integer.parseInt(txtCodigo.getText()));
+        if (pedidoDAO.buscaPedido(pedido) == true) {
+            JOptionPane.showMessageDialog(null, "PEDIDO JÁ CADASTRADO!");
+        } else {
+            //pegando o valor da caixa de texto do formulário        
+            pedido.setCodigo(Integer.parseInt(txtCodigo.getText()));
+            pedido.setDescricao(txtDesc.getText());
+            pedido.setQntd(Integer.parseInt(txtQntd.getText()));
+
+            pedidoDAO.adicionarPedido(pedido);
+            pedidoDAO.buscaPedido(pedido);
+        }
+
+        //limpa os campos do formulario
+        txtCodigo.setText(null);
+        txtDesc.setText(null);
+        txtQntd.setText(null);
         
-         //pegando o valor da caixa de texto do formulário        
-//        pedido.setCodigo(jtbPedido.getTableHeader().toString());
-//        pedido.setDescricao(txtEndCli.getText());
-//        pedido.setQntd(txtSalao.getText());
+        txtCodigo.requestFocus();
+
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void txtCodigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyTyped
@@ -316,7 +335,7 @@ public class TelaPedido extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCodigoKeyTyped
 
     private void txtQntdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQntdKeyTyped
-       // digita somente numeros
+        // digita somente numeros
         String caracteres = "0987654321";
         if (!caracteres.contains(evt.getKeyChar() + "")) {
             evt.consume();

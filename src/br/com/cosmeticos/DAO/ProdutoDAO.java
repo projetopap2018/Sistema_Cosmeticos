@@ -62,8 +62,8 @@ public class ProdutoDAO {
             throw new RuntimeException(e);
         }
     }
-    
-      public boolean buscaProduto(Produto produto ) {
+
+    public boolean buscaProduto(Produto produto) {
 
         boolean achou = false;
 
@@ -74,6 +74,7 @@ public class ProdutoDAO {
             ResultSet rs = pst.executeQuery();
 
             if (rs.next()) {
+
                 achou = true;
             }
 
@@ -86,5 +87,5 @@ public class ProdutoDAO {
         return achou;
     }
 
-
+   
 }

@@ -6,15 +6,17 @@ public class ItensCompra {
     private int qntd;
     private float valorTotal;
     private Compra compra;
+    private Produto produto;
 
     public ItensCompra() {
     }
 
-    public ItensCompra(int idItensCompra, int qntd, float valorTotal, Compra compra) {
+    public ItensCompra(int idItensCompra, int qntd, float valorTotal, Compra compra, Produto produto) {
         this.idItensCompra = idItensCompra;
         this.qntd = qntd;
         this.valorTotal = valorTotal;
         this.compra = compra;
+        this.produto = produto;
     }
 
     /**
@@ -73,4 +75,19 @@ public class ItensCompra {
         this.compra = compra;
     }
 
+    /**
+     * @return the produto
+     */
+    public Produto getProduto() {
+        return produto;
+    }
+
+    /**
+     * @param produto the produto to set
+     */
+    public void setProduto(Produto produto) {
+        this.produto = produto;
+    }
+
+   
 }
