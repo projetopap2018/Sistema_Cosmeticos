@@ -2,9 +2,7 @@
 package br.com.cosmeticos.DAO;
 
 import Conexao.ConectaBanco;
-import br.com.cosmeticos.Model.Cliente;
 import br.com.cosmeticos.Model.Pedido;
-import br.com.cosmeticos.Model.Produto;
 import java.sql.*;
 
 public class PedidoDAO {

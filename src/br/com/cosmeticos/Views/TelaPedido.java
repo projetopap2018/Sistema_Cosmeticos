@@ -5,10 +5,15 @@ import br.com.cosmeticos.DAO.PedidoDAO;
 import br.com.cosmeticos.Model.Pedido;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import java.sql.*;
+import javax.swing.JOptionPane;
 
 public class TelaPedido extends javax.swing.JFrame {
+
+    Connection conexao = null;
+    PreparedStatement pst = null;
+    ResultSet rs = null;
 
     DefaultTableModel modelo;
 
@@ -17,8 +22,8 @@ public class TelaPedido extends javax.swing.JFrame {
      */
     public TelaPedido() {
         initComponents();
-        setExtendedState(MAXIMIZED_BOTH);
-        modelo = (DefaultTableModel) jtbPedido.getModel();
+//        setExtendedState(MAXIMIZED_BOTH);
+//        modelo = (DefaultTableModel) jtbPedido.getModel();
         txtDesc.setDocument(new TeclasPermitidas());
     }
 
@@ -38,15 +43,12 @@ public class TelaPedido extends javax.swing.JFrame {
         txtDesc = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         txtQntd = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jtbPedido = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
-        btnSalvar = new javax.swing.JButton();
-        btnEmail = new javax.swing.JButton();
+        btnPesquisar = new javax.swing.JButton();
         btnLimpar = new javax.swing.JButton();
         btnVoltar = new javax.swing.JButton();
-        btnAdicionar = new javax.swing.JButton();
         lblData = new javax.swing.JLabel();
+        btnSalvar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 0));
@@ -85,50 +87,13 @@ public class TelaPedido extends javax.swing.JFrame {
             }
         });
 
-        jtbPedido.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "CÓDIGO", "DESCRIÇÃO", "QUANTIDADE"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jtbPedido.setRowHeight(20);
-        jScrollPane1.setViewportView(jtbPedido);
-        if (jtbPedido.getColumnModel().getColumnCount() > 0) {
-            jtbPedido.getColumnModel().getColumn(0).setMinWidth(5);
-            jtbPedido.getColumnModel().getColumn(0).setPreferredWidth(5);
-            jtbPedido.getColumnModel().getColumn(1).setMinWidth(500);
-            jtbPedido.getColumnModel().getColumn(1).setPreferredWidth(500);
-            jtbPedido.getColumnModel().getColumn(2).setMinWidth(15);
-            jtbPedido.getColumnModel().getColumn(2).setPreferredWidth(15);
-        }
-
-        btnSalvar.setBackground(new java.awt.Color(0, 0, 0));
-        btnSalvar.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
-        btnSalvar.setForeground(new java.awt.Color(255, 255, 255));
-        btnSalvar.setText("SALVAR");
-        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+        btnPesquisar.setBackground(new java.awt.Color(0, 0, 0));
+        btnPesquisar.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+        btnPesquisar.setForeground(new java.awt.Color(255, 255, 255));
+        btnPesquisar.setText("PESQUISAR");
+        btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalvarActionPerformed(evt);
-            }
-        });
-
-        btnEmail.setBackground(new java.awt.Color(0, 0, 0));
-        btnEmail.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
-        btnEmail.setForeground(new java.awt.Color(255, 255, 255));
-        btnEmail.setText("EMAIL");
-        btnEmail.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEmailActionPerformed(evt);
+                btnPesquisarActionPerformed(evt);
             }
         });
 
@@ -157,40 +122,35 @@ public class TelaPedido extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnSalvar)
-                .addGap(160, 160, 160)
-                .addComponent(btnEmail)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(56, 56, 56)
+                .addComponent(btnPesquisar)
+                .addGap(102, 102, 102)
                 .addComponent(btnLimpar)
-                .addGap(100, 100, 100)
-                .addComponent(btnVoltar)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnVoltar))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(94, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(49, 49, 49))
+                    .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 33, Short.MAX_VALUE))
         );
-
-        btnAdicionar.setBackground(new java.awt.Color(0, 0, 0));
-        btnAdicionar.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
-        btnAdicionar.setForeground(new java.awt.Color(255, 255, 255));
-        btnAdicionar.setText("ADICIONAR");
-        btnAdicionar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAdicionarActionPerformed(evt);
-            }
-        });
 
         lblData.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
         lblData.setForeground(new java.awt.Color(255, 255, 255));
+
+        btnSalvar.setBackground(new java.awt.Color(0, 0, 0));
+        btnSalvar.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+        btnSalvar.setForeground(new java.awt.Color(255, 255, 255));
+        btnSalvar.setText("SALVAR");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -205,22 +165,21 @@ public class TelaPedido extends javax.swing.JFrame {
                         .addComponent(lblData, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(78, 78, 78))
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnSalvar)
+                        .addGap(92, 92, 92)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(jLabel4)
                             .addComponent(jLabel2))
                         .addGap(80, 80, 80)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtQntd, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnAdicionar))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtQntd, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(txtDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 934, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -241,34 +200,17 @@ public class TelaPedido extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtQntd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)
-                    .addComponent(btnAdicionar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(88, 88, 88))
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 140, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, 0))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-
-    private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
-        // setar campos na tabela
-        //preenchendo linhas e colunas da tabela com os valores do formulário
-        //addRow = adiciona os itens em cada linha da tabela
-        modelo.addRow(new Object[]{txtCodigo.getText(), txtDesc.getText(), txtQntd.getText()});
-
-        //limpar campos
-        txtCodigo.setText(null);
-        txtDesc.setText(null);
-        txtQntd.setText(null);
-
-        txtCodigo.requestFocus();
-
-
-    }//GEN-LAST:event_btnAdicionarActionPerformed
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
         //voltar tela principal
@@ -278,7 +220,7 @@ public class TelaPedido extends javax.swing.JFrame {
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
         // limpa os campos
-        txtCodigo.setText(null);
+//        txtCodigo.setText(null);
         txtDesc.setText(null);
         txtQntd.setText(null);
 
@@ -293,36 +235,40 @@ public class TelaPedido extends javax.swing.JFrame {
         lblData.setText(dt.format(sysDate));
     }//GEN-LAST:event_formWindowActivated
 
-    private void btnEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmailActionPerformed
+    private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
         // manda para tela de pesquisa pedido
         TelaPesquisaPedidoProd tpp = new TelaPesquisaPedidoProd();
         tpp.setVisible(true);
-    }//GEN-LAST:event_btnEmailActionPerformed
+    }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         // prepara para salvar dados no banco
-
+      
         Pedido pedido = new Pedido();
         PedidoDAO pedidoDAO = new PedidoDAO();
         pedido.setCodigo(Integer.parseInt(txtCodigo.getText()));
-        if (pedidoDAO.buscaPedido(pedido) == true) {
-            JOptionPane.showMessageDialog(null, "PEDIDO JÁ CADASTRADO!");
-        } else {
-            //pegando o valor da caixa de texto do formulário        
+//        if (pedidoDAO.buscaPedido(pedido) == true) {//verifica se o pedido já esta cadastrado no BD
+//            JOptionPane.showMessageDialog(null, "PEDIDO JÁ CADASTRADO!");
+//        } else {
             pedido.setCodigo(Integer.parseInt(txtCodigo.getText()));
             pedido.setDescricao(txtDesc.getText());
             pedido.setQntd(Integer.parseInt(txtQntd.getText()));
+            //grava as informações da tabela no BD
+//            pedido.setCodigo(Integer.parseInt(jtbPedido.getModel().getValueAt(setar, 0).toString()));
+//            pedido.setDescricao(jtbPedido.getModel().getValueAt(setar, 1).toString());
+//            pedido.setQntd(Integer.parseInt(jtbPedido.getModel().getValueAt(setar, 2).toString()));
 
             pedidoDAO.adicionarPedido(pedido);
             pedidoDAO.buscaPedido(pedido);
-        }
+//        }
 
         //limpa os campos do formulario
-        txtCodigo.setText(null);
+      //  txtCodigo.setText(null);
         txtDesc.setText(null);
         txtQntd.setText(null);
         
-        txtCodigo.requestFocus();
+
+        txtDesc.requestFocus();
 
     }//GEN-LAST:event_btnSalvarActionPerformed
 
@@ -356,16 +302,24 @@ public class TelaPedido extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaPedido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaPedido.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaPedido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaPedido.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaPedido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaPedido.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaPedido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaPedido.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -378,9 +332,8 @@ public class TelaPedido extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAdicionar;
-    private javax.swing.JButton btnEmail;
     private javax.swing.JButton btnLimpar;
+    private javax.swing.JButton btnPesquisar;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JButton btnVoltar;
     private javax.swing.JLabel jLabel1;
@@ -388,8 +341,6 @@ public class TelaPedido extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jtbPedido;
     private javax.swing.JLabel lblData;
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtDesc;
