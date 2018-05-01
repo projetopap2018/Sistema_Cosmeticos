@@ -270,10 +270,10 @@ public class TelaPesquisaPedidoProd extends javax.swing.JFrame {
         try {
             String sql = "select codigo as CÓDIGO,descricao as DESCRIÇÃO,qntd as QNTD, data as DATA"
                     + " from cosmetico.Pedido where codigo = ?";
-//            String sql = "select * from cosmetico.Pedido where codigo = ?";
+
             pst = conexao.prepareStatement(sql);
             //passando o conteudo da caixa de pesquisa para o ?
-            pst.setString(1, txtPesquisa.getText() + "%");
+            pst.setString(1, txtPesquisa.getText());
             rs = pst.executeQuery();//executa a query no banco
             //a linha abaixo usa a biblioteca rs2xml.jar para preencher a tabela
             jtbPedido.setModel(DbUtils.resultSetToTableModel(rs));

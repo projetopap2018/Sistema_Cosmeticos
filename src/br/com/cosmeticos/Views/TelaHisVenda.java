@@ -1,20 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.cosmeticos.Views;
 
+import Conexao.ConectaBanco;
 import Conexao.TeclasPermitidas;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
-import net.proteanit.sql.DbUtils;
+import net.proteanit.sql.DbUtils;//preenche a tabela com dados do formulário
 
-/**
- *
- * @author ronal
- */
 public class TelaHisVenda extends javax.swing.JFrame {
 
     Connection conexao = null;
@@ -26,6 +18,7 @@ public class TelaHisVenda extends javax.swing.JFrame {
      */
     public TelaHisVenda() {
         initComponents();
+        conexao = ConectaBanco.getConnection();
 //        setExtendedState(MAXIMIZED_BOTH);
         txtCliente.setDocument(new TeclasPermitidas());
         txtProduto.setDocument(new TeclasPermitidas());
@@ -54,6 +47,10 @@ public class TelaHisVenda extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jtbHisVenda = new javax.swing.JTable();
         btnBuscar = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        txtData = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        txtQntd = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -106,7 +103,7 @@ public class TelaHisVenda extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "", "", "", ""
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -115,6 +112,12 @@ public class TelaHisVenda extends javax.swing.JFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        jtbHisVenda.setRowHeight(55);
+        jtbHisVenda.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtbHisVendaMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(jtbHisVenda);
@@ -128,6 +131,17 @@ public class TelaHisVenda extends javax.swing.JFrame {
                 btnBuscarActionPerformed(evt);
             }
         });
+
+        jLabel6.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+        jLabel6.setText("DATA");
+
+        txtData.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+        txtData.setEnabled(false);
+
+        jLabel7.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+        jLabel7.setText("QNTD");
+
+        txtQntd.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -166,7 +180,16 @@ public class TelaHisVenda extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 660, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 660, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel7)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(txtQntd, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, 562, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 452, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -181,8 +204,8 @@ public class TelaHisVenda extends javax.swing.JFrame {
                     .addComponent(jLabel5)
                     .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar))
-                .addGap(26, 26, 26)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -194,8 +217,14 @@ public class TelaHisVenda extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 218, Short.MAX_VALUE)
+                    .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7)
+                    .addComponent(txtQntd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 142, Short.MAX_VALUE)
                 .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -221,27 +250,43 @@ public class TelaHisVenda extends javax.swing.JFrame {
         pesquisaVenda();
     }//GEN-LAST:event_btnBuscarActionPerformed
 
+    private void jtbHisVendaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbHisVendaMouseClicked
+        // chama metodo setar
+        setarCampos();
+    }//GEN-LAST:event_jtbHisVendaMouseClicked
+
     private void pesquisaVenda() {
 
         try {
-            
             String sql = "select codigo as Código_Produto,descricao as Produto,nome as Cliente,"
-                    + "valorTotal as Valor_Total_Compra from cosmetico.Compra"
-                    + "inner join itenscompra on compra.idCompra = itenscompra.idItensCompra"
-                    + "inner join cliente on compra.idCompra = cliente.idCliente"
-                    + "inner join produto on itenscompra.idItensCompra = produto.idProduto WHERE codigo = ?";
+                    + "itenscompra.qntd as QNTD_PRODUTO,valorTotal as Valor_Total_Compra, Data_Compra from cosmetico.Compra\n"
+                    + "inner join cosmetico.itenscompra on cosmetico.compra.idCompra = "
+                    + "cosmetico.itenscompra.idItensCompra\n"
+                    + "inner join cosmetico.cliente on cosmetico.compra.idCompra = cosmetico.cliente.idCliente\n"
+                    + "inner join cosmetico.produto on cosmetico.itenscompra.idItensCompra = "
+                    + "cosmetico.produto.idProduto where codigo = ?";
 
             pst = conexao.prepareStatement(sql);
-
-            //passando o conteudo da caixa de pesquisa para o ?
-            //atencao ao % que e a continuação da string sql
             pst.setString(1, txtPesquisa.getText());
-            rs = pst.executeQuery();//executa a query no banco
-            //a linha abaixo usa a biblioteca rs2xml.jar para preencher a tabela
+            rs = pst.executeQuery();
             jtbHisVenda.setModel(DbUtils.resultSetToTableModel(rs));
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao pesquisar");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "ERRO AO PESQUISA OS DADOS" + e);
         }
+
+    }
+    
+      //metodo para setar os campos da tabela no formulario
+    private void setarCampos() {
+        int setar = jtbHisVenda.getSelectedRow();
+
+//        txtId.setText(jtbPedido.getModel().getValueAt(setar, 0).toString());
+        txtCliente.setText(jtbHisVenda.getModel().getValueAt(setar, 2).toString());
+        txtProduto.setText(jtbHisVenda.getModel().getValueAt(setar, 1).toString());
+        txtQntd.setText(jtbHisVenda.getModel().getValueAt(setar, 3).toString());
+        txtValor.setText(jtbHisVenda.getModel().getValueAt(setar, 4).toString());
+        txtData.setText(jtbHisVenda.getModel().getValueAt(setar, 5).toString());
+      
     }
 
     /**
@@ -287,12 +332,16 @@ public class TelaHisVenda extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jtbHisVenda;
     private javax.swing.JLabel lblData;
     private javax.swing.JTextField txtCliente;
+    private javax.swing.JTextField txtData;
     private javax.swing.JTextField txtPesquisa;
     private javax.swing.JTextField txtProduto;
+    private javax.swing.JTextField txtQntd;
     private javax.swing.JTextField txtValor;
     // End of variables declaration//GEN-END:variables
 }

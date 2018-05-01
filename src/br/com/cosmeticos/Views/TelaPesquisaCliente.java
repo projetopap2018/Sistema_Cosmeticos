@@ -250,7 +250,7 @@ public class TelaPesquisaCliente extends javax.swing.JFrame {
                     .addComponent(btnBusca)
                     .addComponent(lblData))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
@@ -282,7 +282,7 @@ public class TelaPesquisaCliente extends javax.swing.JFrame {
                                 .addComponent(jLabel7)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(305, Short.MAX_VALUE))
+                        .addContainerGap(301, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(txtDataCadCli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(36, 36, 36)
@@ -290,7 +290,7 @@ public class TelaPesquisaCliente extends javax.swing.JFrame {
                             .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(151, Short.MAX_VALUE))))
+                        .addContainerGap(140, Short.MAX_VALUE))))
         );
 
         pack();
@@ -298,7 +298,7 @@ public class TelaPesquisaCliente extends javax.swing.JFrame {
     private void pesquisarClientePorNome() {
 
         try {
-            String sql = "select nome as NOME, endereco as ENDEREÇO, salao as SALAO,numero as NÚMERO,"
+            String sql = "select nome as NOME, endereco as ENDEREÇO, salao as SALÃO,numero as NÚMERO,"
                     + "email as EMAIL,celular as CELULAR,data as DATA from cosmetico.Cliente where nome like ?";
             pst = conexao.prepareStatement(sql);
 
@@ -318,12 +318,12 @@ public class TelaPesquisaCliente extends javax.swing.JFrame {
         int setar = jtbClientes.getSelectedRow();
 
         txtNome.setText(jtbClientes.getModel().getValueAt(setar, 0).toString());
-        txtEnd.setText(jtbClientes.getModel().getValueAt(setar,1).toString());
+        txtEnd.setText(jtbClientes.getModel().getValueAt(setar, 1).toString());
         txtSalao.setText(jtbClientes.getModel().getValueAt(setar, 2).toString());
         txtNumero.setText(jtbClientes.getModel().getValueAt(setar, 3).toString());
         txtEmail.setText(jtbClientes.getModel().getValueAt(setar, 4).toString());
         txtCel.setText(jtbClientes.getModel().getValueAt(setar, 5).toString());
-        txtDataCadCli.setText(jtbClientes.getModel().getValueAt(setar,6).toString());
+        txtDataCadCli.setText(jtbClientes.getModel().getValueAt(setar, 6).toString());
     }
 
     private void btnBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaActionPerformed
@@ -340,7 +340,7 @@ public class TelaPesquisaCliente extends javax.swing.JFrame {
         // CHAMA METODO ALTERAR
         try {
             Cliente cliente = new Cliente();//instanciar cliente
-
+            ClienteDAO clienteDao = new ClienteDAO();//chamar DAO para inserção no BD
             //pegando o valor da caixa de texto do formulário
             cliente.setNome(txtNome.getText());
             cliente.setEndereco(txtEnd.getText());
@@ -350,7 +350,6 @@ public class TelaPesquisaCliente extends javax.swing.JFrame {
             cliente.setCelular(txtCel.getText());
             cliente.setIdCliente(Integer.parseInt(txtId.getText()));
 
-            ClienteDAO clienteDao = new ClienteDAO();//chamar DAO para inserção no BD
             clienteDao.alterarCliente(cliente);//chama clienteDAO e o metodo com o objeto cliente como parametro
             //        JOptionPane.showMessageDialog(null, "CLIENTE ALTERADO COM SUCESSO!");
 //limpar campos
