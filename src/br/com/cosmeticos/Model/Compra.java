@@ -6,14 +6,16 @@ public class Compra {
     private int idCompra;
     private float valor;
     private Cliente cliente;
+    private Itens itensCompra;
 
     public Compra() {
     }
 
-    public Compra(int idCompra, float valor, Cliente cliente) {
+    public Compra(int idCompra, float valor, Cliente cliente, Itens itensCompra) {
         this.idCompra = idCompra;
         this.valor = valor;
         this.cliente = cliente;
+        this.itensCompra = itensCompra;
     }
 
     /**
@@ -57,5 +59,21 @@ public class Compra {
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
+
+    /**
+     * @return the itensCompra
+     */
+    public Itens getItensCompra() {
+        return itensCompra;
+    }
+
+    /**
+     * @param itensCompra the itensCompra to set
+     */
+    public void setItensCompra(Itens itensCompra) {
+        this.itensCompra = itensCompra;
+    }
+
+   
 
 }

@@ -1,21 +1,19 @@
 package br.com.cosmeticos.Model;
 
-public class ItensCompra {
+public class Itens {
 
     private int idItensCompra;
     private int qntd;
     private float valorTotal;
-    private Compra compra;
     private Produto produto;
 
-    public ItensCompra() {
+    public Itens() {
     }
 
-    public ItensCompra(int idItensCompra, int qntd, float valorTotal, Compra compra, Produto produto) {
+    public Itens(int idItensCompra, int qntd, float valorTotal, Produto produto) {
         this.idItensCompra = idItensCompra;
         this.qntd = qntd;
         this.valorTotal = valorTotal;
-        this.compra = compra;
         this.produto = produto;
     }
 
@@ -62,20 +60,6 @@ public class ItensCompra {
     }
 
     /**
-     * @return the compra
-     */
-    public Compra getCompra() {
-        return compra;
-    }
-
-    /**
-     * @param compra the compra to set
-     */
-    public void setCompra(Compra compra) {
-        this.compra = compra;
-    }
-
-    /**
      * @return the produto
      */
     public Produto getProduto() {
@@ -89,5 +73,6 @@ public class ItensCompra {
         this.produto = produto;
     }
 
+   
    
 }

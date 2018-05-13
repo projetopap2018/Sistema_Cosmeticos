@@ -3,12 +3,16 @@ package br.com.cosmeticos.Views;
 import Conexao.TeclasPermitidas;
 import br.com.cosmeticos.DAO.ClienteDAO;
 import br.com.cosmeticos.Model.Cliente;
+import java.awt.Color;
+import java.awt.Font;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import java.sql.ResultSet;
+import javax.swing.UIManager;
+import javax.swing.plaf.FontUIResource;
 
 public class TelaCliente extends javax.swing.JFrame {
 
@@ -264,24 +268,34 @@ public class TelaCliente extends javax.swing.JFrame {
         Cliente cliente = new Cliente();//instanciar cliente
         ClienteDAO clienteDao = new ClienteDAO();//chamar DAO para inserção no BD
         cliente.setCpf(txtCPF.getText());//traz campo CPF INFORMADO NO FORMULÁRIO 
-        if (clienteDao.buscaCpf(cliente) == true) {//verifica cpf cadastrado no banco
-            JOptionPane.showMessageDialog(null, "CLIENTE JÁ CADASTRADO!");
-        } else {
-            //pegando o valor da caixa de texto do formulário
-            cliente.setNome(txtCliente.getText());
-            cliente.setEndereco(txtEndCli.getText());
-            cliente.setSalao(txtSalao.getText());
-            cliente.setNumero(Integer.parseInt(txtNumero.getText()));
-            cliente.setEmail(txtEmail.getText());
-            cliente.setCelular(txtCel.getText());
+        if (clienteDao.buscaCpf(cliente) == false) {
+            JOptionPane.showMessageDialog(null, "CPF INVÁLIDO!!!");
 
-            clienteDao.adicionarCliente(cliente);//chama clienteDAO e o metodo com o objeto cliente como parametro
+            if (clienteDao.buscaCpf(cliente) == true) {//verifica cpf cadastrado no banco
+                
+                UIManager.put("OptionPane.messageFont", new FontUIResource(new Font("ARIAL", Font.PLAIN, 35)));
+                UIManager.put("OptionPane.messageForeground", Color.blue);
+                UIManager.put("OptionPane.buttonFont", new FontUIResource(new Font("ARIAL", Font.PLAIN, 35)));
+                UIManager.put("OptionPane.background", Color.RED);
+                UIManager.put("Panel.background", Color.yellow);
+                JOptionPane.showMessageDialog(null, "CLIENTE JÁ CADASTRADO!");
 
-            clienteDao.buscaCpf(cliente);
+            } else {
+                //pegando o valor da caixa de texto do formulário
+                cliente.setNome(txtCliente.getText());
+                cliente.setEndereco(txtEndCli.getText());
+                cliente.setSalao(txtSalao.getText());
+                cliente.setNumero(Integer.parseInt(txtNumero.getText()));
+                cliente.setEmail(txtEmail.getText());
+                cliente.setCelular(txtCel.getText());
 
-            JOptionPane.showMessageDialog(null, "CLIENTE CADASTRADO!");
+                clienteDao.adicionarCliente(cliente);//chama clienteDAO e o metodo com o objeto cliente como parametro
+
+                clienteDao.buscaCpf(cliente);
+
+                JOptionPane.showMessageDialog(null, "CLIENTE CADASTRADO!");
+            }
         }
-
 //limpar campos
         txtCliente.setText(null);
         txtEndCli.setText(null);

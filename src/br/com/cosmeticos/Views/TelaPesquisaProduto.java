@@ -334,14 +334,13 @@ public class TelaPesquisaProduto extends javax.swing.JFrame {
         // chama metodo alterar
         try {
             Produto produto = new Produto();
-
+            ProdutoDAO produtoDAO = new ProdutoDAO();
             produto.setCodigo(Integer.parseInt(txtCodigo.getText()));
             produto.setDescricao(txtDesc.getText());
             produto.setQntd(Integer.parseInt(txtQntd.getText()));
             produto.setValorUni(Float.parseFloat(txtValorUni.getText()));
             produto.setIdProduto(Integer.parseInt(txtId.getText()));
 
-            ProdutoDAO produtoDAO = new ProdutoDAO();
             produtoDAO.alterarProduto(produto);//chama metodo da classe produtoDAO
             JOptionPane.showMessageDialog(null, "PRODUTO ALTERADO!");
 
