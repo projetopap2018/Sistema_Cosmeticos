@@ -10,7 +10,7 @@ public class Itens {
     public Itens() {
     }
 
-    public Itens(int idItensCompra, int qntd, float valorTotal, Produto produto) {
+    public Itens(int idItensCompra, int qntd, float valorTotal,Produto produto) {
         this.idItensCompra = idItensCompra;
         this.qntd = qntd;
         this.valorTotal = valorTotal;
@@ -72,7 +72,7 @@ public class Itens {
     public void setProduto(Produto produto) {
         this.produto = produto;
     }
+    
+    
 
-   
-   
 }

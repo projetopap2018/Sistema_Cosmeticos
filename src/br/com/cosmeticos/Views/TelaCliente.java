@@ -3,16 +3,13 @@ package br.com.cosmeticos.Views;
 import Conexao.TeclasPermitidas;
 import br.com.cosmeticos.DAO.ClienteDAO;
 import br.com.cosmeticos.Model.Cliente;
-import java.awt.Color;
-import java.awt.Font;
+import java.awt.Toolkit;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import java.sql.ResultSet;
-import javax.swing.UIManager;
-import javax.swing.plaf.FontUIResource;
 
 public class TelaCliente extends javax.swing.JFrame {
 
@@ -268,18 +265,10 @@ public class TelaCliente extends javax.swing.JFrame {
         Cliente cliente = new Cliente();//instanciar cliente
         ClienteDAO clienteDao = new ClienteDAO();//chamar DAO para inserção no BD
         cliente.setCpf(txtCPF.getText());//traz campo CPF INFORMADO NO FORMULÁRIO 
-        if (clienteDao.buscaCpf(cliente) == false) {
-            JOptionPane.showMessageDialog(null, "CPF INVÁLIDO!!!");
 
-            if (clienteDao.buscaCpf(cliente) == true) {//verifica cpf cadastrado no banco
-                
-                UIManager.put("OptionPane.messageFont", new FontUIResource(new Font("ARIAL", Font.PLAIN, 35)));
-                UIManager.put("OptionPane.messageForeground", Color.blue);
-                UIManager.put("OptionPane.buttonFont", new FontUIResource(new Font("ARIAL", Font.PLAIN, 35)));
-                UIManager.put("OptionPane.background", Color.RED);
-                UIManager.put("Panel.background", Color.yellow);
-                JOptionPane.showMessageDialog(null, "CLIENTE JÁ CADASTRADO!");
-
+        if (clienteDao.buscaCpf(cliente)) {
+            if (clienteDao.buscaCpf(cliente) == true) {
+                JOptionPane.showMessageDialog(null, "CLIENTE JÁ CADASTRADO!!");
             } else {
                 //pegando o valor da caixa de texto do formulário
                 cliente.setNome(txtCliente.getText());
@@ -292,10 +281,14 @@ public class TelaCliente extends javax.swing.JFrame {
                 clienteDao.adicionarCliente(cliente);//chama clienteDAO e o metodo com o objeto cliente como parametro
 
                 clienteDao.buscaCpf(cliente);
-
+                // EMITE UM BEEP qndo gravar o cadastro
+                Toolkit.getDefaultToolkit().beep();
                 JOptionPane.showMessageDialog(null, "CLIENTE CADASTRADO!");
             }
-        }
+        }else if(clienteDao.buscaCpf(cliente) == false){
+                    JOptionPane.showMessageDialog(null, "CPF INVÁLIDO!!");
+            }
+
 //limpar campos
         txtCliente.setText(null);
         txtEndCli.setText(null);
