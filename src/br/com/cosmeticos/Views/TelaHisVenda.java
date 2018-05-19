@@ -271,12 +271,12 @@ public class TelaHisVenda extends javax.swing.JFrame {
             rs = pst.executeQuery();
             jtbHisVenda.setModel(DbUtils.resultSetToTableModel(rs));
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "ERRO AO PESQUISA OS DADOS" + e);
+            JOptionPane.showMessageDialog(null, "<html><font color=white face=arial size=1000><i><b> ERRO NA PESQUISA DA VENDA!!", "ERRO", HEIGHT);
         }
 
     }
-    
-      //metodo para setar os campos da tabela no formulario
+
+    //metodo para setar os campos da tabela no formulario
     private void setarCampos() {
         int setar = jtbHisVenda.getSelectedRow();
 
@@ -286,7 +286,7 @@ public class TelaHisVenda extends javax.swing.JFrame {
         txtQntd.setText(jtbHisVenda.getModel().getValueAt(setar, 3).toString());
         txtValor.setText(jtbHisVenda.getModel().getValueAt(setar, 4).toString());
         txtData.setText(jtbHisVenda.getModel().getValueAt(setar, 5).toString());
-      
+
     }
 
     /**

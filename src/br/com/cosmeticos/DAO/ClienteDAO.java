@@ -4,7 +4,6 @@ import Conexao.ConectaBanco;
 import br.com.cosmeticos.Model.Cliente;
 import java.sql.*;
 
-
 public class ClienteDAO {
 
     Connection conexao = null;
@@ -107,7 +106,7 @@ public class ClienteDAO {
 
     public boolean buscaCpf(Cliente cliente) {
 
-        boolean achou = false;
+       boolean achou = false;
 
         try {
             String sql = "select * from cosmetico.cliente where cpf = ?";
@@ -127,4 +126,5 @@ public class ClienteDAO {
         }
         return achou;
     }
+ 
 }

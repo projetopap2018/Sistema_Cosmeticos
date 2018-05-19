@@ -5,6 +5,7 @@ import Conexao.TeclasPermitidas;
 import br.com.cosmeticos.DAO.PedidoDAO;
 import br.com.cosmeticos.Model.Pedido;
 import java.awt.HeadlessException;
+import java.awt.Toolkit;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
@@ -278,7 +279,7 @@ public class TelaPesquisaPedidoProd extends javax.swing.JFrame {
             //a linha abaixo usa a biblioteca rs2xml.jar para preencher a tabela
             jtbPedido.setModel(DbUtils.resultSetToTableModel(rs));
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "ERRO AO PESQUISAR O PEDIDO!");
+            JOptionPane.showMessageDialog(null, "<html><font color=white face=arial size=1000><i><b>ERRO AO PESQUISAR O PEDIDO!!", "ERRO", HEIGHT);
         }
     }
 
@@ -338,7 +339,7 @@ public class TelaPesquisaPedidoProd extends javax.swing.JFrame {
             txtPesquisa.requestFocus();
 
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "ERRO NA ALTERAÇÃO DOS DADOS!" + e);
+            JOptionPane.showMessageDialog(null, "<html><font color=white face=arial size=1000><i><b>ERRO NA ALTERAÇÃO DOS DADOS!!", "ERRO", HEIGHT);
         }
     }//GEN-LAST:event_btnAlterarActionPerformed
 
@@ -350,8 +351,9 @@ public class TelaPesquisaPedidoProd extends javax.swing.JFrame {
             pedido.setIdPedido(Integer.parseInt(txtId.getText()));//chama id para excluir
 
             pedidoDAO.excluirPedido(pedido);
-
-            JOptionPane.showMessageDialog(null, "PEDIDO EXCLUÍDO COM SUCESSO!");
+            // EMITE UM BEEP qndo gravar o cadastro
+            Toolkit.getDefaultToolkit().beep();
+            //    JOptionPane.showMessageDialog(null, "PEDIDO EXCLUÍDO COM SUCESSO!");
 
             //limpar campos
             txtCodigo.setText(null);
@@ -360,7 +362,7 @@ public class TelaPesquisaPedidoProd extends javax.swing.JFrame {
 
             txtCodigo.requestFocus();
         } catch (HeadlessException | NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "ERRO NA EXCLUSÃO DOS DADOS!" + e);
+            JOptionPane.showMessageDialog(null, "<html><font color=white face=arial size=1000><i><b>ERRO NA EXCLUSÃO DOS DADOS!!", "ERRO", HEIGHT);
         }
 
     }//GEN-LAST:event_btnExcluirActionPerformed

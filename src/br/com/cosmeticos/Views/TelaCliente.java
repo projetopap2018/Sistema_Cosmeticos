@@ -266,28 +266,24 @@ public class TelaCliente extends javax.swing.JFrame {
         ClienteDAO clienteDao = new ClienteDAO();//chamar DAO para inserção no BD
         cliente.setCpf(txtCPF.getText());//traz campo CPF INFORMADO NO FORMULÁRIO 
 
-        if (clienteDao.buscaCpf(cliente)) {
-            if (clienteDao.buscaCpf(cliente) == true) {
-                JOptionPane.showMessageDialog(null, "CLIENTE JÁ CADASTRADO!!");
-            } else {
-                //pegando o valor da caixa de texto do formulário
-                cliente.setNome(txtCliente.getText());
-                cliente.setEndereco(txtEndCli.getText());
-                cliente.setSalao(txtSalao.getText());
-                cliente.setNumero(Integer.parseInt(txtNumero.getText()));
-                cliente.setEmail(txtEmail.getText());
-                cliente.setCelular(txtCel.getText());
+        if (clienteDao.buscaCpf(cliente) == true) {
+            JOptionPane.showMessageDialog(null, "<html><font color=white face=arial size=1000><i><b> CLIENTE JÁ CADASTRADO!!", "ERRO", HEIGHT);
+        } else {
+            //pegando o valor da caixa de texto do formulário
+            cliente.setNome(txtCliente.getText());
+            cliente.setEndereco(txtEndCli.getText());
+            cliente.setSalao(txtSalao.getText());
+            cliente.setNumero(Integer.parseInt(txtNumero.getText()));
+            cliente.setEmail(txtEmail.getText());
+            cliente.setCelular(txtCel.getText());
 
-                clienteDao.adicionarCliente(cliente);//chama clienteDAO e o metodo com o objeto cliente como parametro
+            clienteDao.adicionarCliente(cliente);//chama clienteDAO e o metodo com o objeto cliente como parametro
 
-                clienteDao.buscaCpf(cliente);
-                // EMITE UM BEEP qndo gravar o cadastro
-                Toolkit.getDefaultToolkit().beep();
-                JOptionPane.showMessageDialog(null, "CLIENTE CADASTRADO!");
-            }
-        }else if(clienteDao.buscaCpf(cliente) == false){
-                    JOptionPane.showMessageDialog(null, "CPF INVÁLIDO!!");
-            }
+            clienteDao.buscaCpf(cliente);
+            // EMITE UM BEEP qndo gravar o cadastro
+            Toolkit.getDefaultToolkit().beep();
+         
+        }
 
 //limpar campos
         txtCliente.setText(null);
@@ -303,7 +299,7 @@ public class TelaCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalvarCliActionPerformed
 
     private void btnPesqCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesqCliActionPerformed
-        // chama metodo persquisar
+        // chama tela persquisar
 
         TelaPesquisaCliente tpesq = new TelaPesquisaCliente();
         tpesq.setVisible(true);

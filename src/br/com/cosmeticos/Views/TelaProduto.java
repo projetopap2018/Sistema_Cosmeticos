@@ -3,6 +3,7 @@ package br.com.cosmeticos.Views;
 import Conexao.TeclasPermitidas;
 import br.com.cosmeticos.DAO.ProdutoDAO;
 import br.com.cosmeticos.Model.Produto;
+import java.awt.Toolkit;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -204,7 +205,7 @@ public class TelaProduto extends javax.swing.JFrame {
         produto.setCodigo(Integer.parseInt(txtCodigo.getText()));//pega valor do campo
         
         if (produtoDAO.buscaProduto(produto) == true) {//verifica produto ja cadastrado no bd
-            JOptionPane.showMessageDialog(null, "PRODUTO JÁ CADASTRADO!");
+            JOptionPane.showMessageDialog(null,  "<html><font color=white face=arial size=1000><i><b> PRODUTO JÁ CADASTRADO!!", "ERRO", HEIGHT);
         } else {
             //PEGA OS VALORES DO FORMULARIO E GRAVA NO BD
             produto.setCodigo(Integer.parseInt(txtCodigo.getText()));
@@ -215,7 +216,8 @@ public class TelaProduto extends javax.swing.JFrame {
             produtoDAO.adcionarProduto(produto);
             produtoDAO.buscaProduto(produto);
 
-            JOptionPane.showMessageDialog(null, "PRODUTO CADASTRADO!");
+              // EMITE UM BEEP qndo gravar o cadastro
+            Toolkit.getDefaultToolkit().beep();
         }
 
         //LIMPAR OS CAMPOS DEPOIS DE SALVAR

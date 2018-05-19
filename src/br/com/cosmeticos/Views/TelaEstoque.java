@@ -278,7 +278,7 @@ public class TelaEstoque extends javax.swing.JFrame {
             //a linha abaixo usa a biblioteca rs2xml.jar para preencher a tabela
             jtbEstoque.setModel(DbUtils.resultSetToTableModel(rs));
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao pesquisar");
+            JOptionPane.showMessageDialog(null, "<html><font color=white face=arial size=1000><i><b> PRODUTO NÃO CADASTRADO!!", "ERRO", HEIGHT);
         }
     }
 

@@ -243,13 +243,14 @@ public class TelaPedido extends javax.swing.JFrame {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         // prepara para salvar dados no banco
-      
+
         Pedido pedido = new Pedido();
         PedidoDAO pedidoDAO = new PedidoDAO();
         pedido.setCodigo(Integer.parseInt(txtCodigo.getText()));
-//        if (pedidoDAO.buscaPedido(pedido) == true) {//verifica se o pedido já esta cadastrado no BD
-//            JOptionPane.showMessageDialog(null, "PEDIDO JÁ CADASTRADO!");
-//        } else {
+        if (pedidoDAO.buscaPedido(pedido) == true) {//verifica se o pedido já esta cadastrado no BD
+            JOptionPane.showMessageDialog(null, "<html><font color=white face=arial size=1000><i><b> PEDIDO JÁ CADASTRADO!!", "ERRO", HEIGHT);
+
+        } else {
             pedido.setCodigo(Integer.parseInt(txtCodigo.getText()));
             pedido.setDescricao(txtDesc.getText());
             pedido.setQntd(Integer.parseInt(txtQntd.getText()));
@@ -262,14 +263,13 @@ public class TelaPedido extends javax.swing.JFrame {
             pedidoDAO.buscaPedido(pedido);
 //        }
 
-        //limpa os campos do formulario
-      //  txtCodigo.setText(null);
-        txtDesc.setText(null);
-        txtQntd.setText(null);
-        
+            //limpa os campos do formulario
+            //  txtCodigo.setText(null);
+            txtDesc.setText(null);
+            txtQntd.setText(null);
 
-        txtDesc.requestFocus();
-
+            txtDesc.requestFocus();
+        }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void txtCodigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyTyped

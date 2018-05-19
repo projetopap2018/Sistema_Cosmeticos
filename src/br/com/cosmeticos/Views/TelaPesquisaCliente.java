@@ -309,7 +309,7 @@ public class TelaPesquisaCliente extends javax.swing.JFrame {
             //a linha abaixo usa a biblioteca rs2xml.jar para preencher a tabela
             jtbClientes.setModel(DbUtils.resultSetToTableModel(rs));
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "ERRO AO PESQUISAR O CLIENTE!");
+            JOptionPane.showMessageDialog(null, "<html><font color=white face=arial size=1000><i><b>ERRO AO PESQUISAR O CLIENTE!!", "ERRO", HEIGHT);
         }
     }
 
